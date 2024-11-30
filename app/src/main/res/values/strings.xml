@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LoveCounter</string>
+    <string name="onboarding_title_1">Soul Mates</string>
+    <string name="onboarding_description_1">Aşk Sayacı hayat arkadaşınız geçirdiğiniz günleri kaydını tutan yeni nesil depolama uygulamasıdır.</string>
+    <string name="onboarding_title_2">Soul Mates Page 2</string>
+    <string name="onboarding_title_3">Soul Mates Page 3</string>
+    <string name="onboarding_description_2">Aşk Sayacı bir başkasının tanışma hikayelerini okuyabilir,sende ilham kaynağı olabilirsin</string>
+    <string name="onboarding_description_3">Aşk Sayacında anılarınızı biriktirebilir,Yıllar sonra dünyanınen özel hediyesini hediye edebilirsiniz.</string>
+
+    <string name="finish">Finish</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+</resources>
