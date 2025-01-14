@@ -1,5 +1,6 @@
-package com.example.lovecounter.ui.home
+package com.example.lovecounter.presentation.onboarding
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,28 +22,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.lovecounter.R
-import com.example.lovecounter.ui.home.OnboardingContract.UiState
-import com.example.lovecounter.ui.theme.SoulMatesOrangeEndColor
-import com.example.lovecounter.ui.theme.SoulMatesOrangeStartColor
-import com.example.lovecounter.ui.theme.TransparentWhite
-import com.example.lovecounter.ui.theme.White
-import com.example.lovecounter.ui.theme.indicatorSelectColor
+import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
+import com.example.lovecounter.presentation.theme.SoulMatesOrangeEndColor
+import com.example.lovecounter.presentation.theme.SoulMatesOrangeStartColor
+import com.example.lovecounter.presentation.theme.TransparentWhite
+import com.example.lovecounter.presentation.theme.White
+import com.example.lovecounter.presentation.theme.indicatorSelectColor
 import kotlinx.coroutines.launch
 
 @Composable
@@ -70,7 +67,7 @@ fun OnboardingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        Button(
+        /*Button(
             modifier = Modifier
                 .align(Alignment.End)
                 .padding(top = 24.dp, end = 24.dp)
@@ -80,7 +77,7 @@ fun OnboardingScreen(
             onClick = onSkipClicked
         ) {
             Text(text = stringResource(R.string.skip))
-        }
+        } */
 
 
 
@@ -136,25 +133,30 @@ fun PageContent(
     onboardingData: OnboardingData
 ) {
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(onboardingData.image))
-    val progress by animateLottieCompositionAsState(composition)
-
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        LottieAnimation(
-            modifier = Modifier
-                .size(250.dp),
-            composition = composition,
-            progress = { progress }
+
+        Image(
+            modifier = Modifier.padding(top = 72.dp),
+            painter = painterResource(id = R.drawable.app_logo),
+            contentDescription = "Onboarding Image"
+        )
+        Spacer(modifier = Modifier.weight(1f))
+
+        Image(
+            modifier = Modifier,
+            painter = painterResource(id = R.drawable.onboarding_first),
+            contentDescription = "Onboarding Image"
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(72.dp))
 
         Text(
             modifier = Modifier
+                .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 16.dp),
             fontSize = 16.sp,
             color = White,
@@ -230,15 +232,6 @@ fun ButtonContent(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewOnboardingScreen() {
-    OnboardingScreen(
-        onFinishClicked = {},
-        onSkipClicked = {}
-    )
 }
 
 @Preview(showBackground = true)

@@ -1,4 +1,4 @@
-package com.example.lovecounter.ui.home
+package com.example.lovecounter.presentation.onboarding
 
 import android.annotation.SuppressLint
 import androidx.annotation.StringRes
@@ -15,16 +15,16 @@ fun getOnboardingData() = listOf(
     OnboardingData(
         R.string.onboarding_title_1,
         R.string.onboarding_description_1,
-        R.raw.shopping
+        R.drawable.onboarding_first
     ),
     OnboardingData(
         R.string.onboarding_title_2,
         R.string.onboarding_description_2,
-        R.raw.shopping
+        R.drawable.onboarding_second
     ),
     OnboardingData(
         R.string.onboarding_title_3,
         R.string.onboarding_description_3,
-        R.raw.shopping
+        R.drawable.onboarding_third
     )
 )

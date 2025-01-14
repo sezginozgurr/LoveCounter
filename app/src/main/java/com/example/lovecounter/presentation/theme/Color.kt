@@ -1,4 +1,4 @@
-package com.example.lovecounter.ui.theme
+package com.example.lovecounter.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -18,3 +18,5 @@ val SoulMatesOrangeEndColor = Color(0xFFDC4044)
 
 val indicatorGray = Color(0xFF696867)
 val indicatorSelectColor = Color(0xFF3F51B5)
+
+val AppColor = Color(0xFFE1534E)

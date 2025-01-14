@@ -1,9 +1,9 @@
-package com.example.lovecounter.ui.home
+package com.example.lovecounter.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
-import com.example.lovecounter.ui.home.OnboardingContract.UiAction
-import com.example.lovecounter.ui.home.OnboardingContract.UiEffect
-import com.example.lovecounter.ui.home.OnboardingContract.UiState
+import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiAction
+import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiEffect
+import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -27,6 +27,7 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun updateUiState(block: UiState.() -> UiState) {
+        
         _uiState.update(block)
     }
 

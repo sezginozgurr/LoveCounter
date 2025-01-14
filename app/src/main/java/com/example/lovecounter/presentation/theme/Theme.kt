@@ -1,4 +1,4 @@
-package com.example.lovecounter.ui.theme
+package com.example.lovecounter.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

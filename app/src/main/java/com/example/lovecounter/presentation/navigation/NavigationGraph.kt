@@ -1,18 +1,12 @@
-package com.example.lovecounter.ui.navigation
+package com.example.lovecounter.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lovecounter.ui.home.OnboardingScreen
-import com.example.lovecounter.ui.navigation.Screen.homeRoute
-import com.example.lovecounter.ui.navigation.Screen.onboardingRoute
-
-object Screen {
-    const val onboardingRoute = "OnboardingScreen"
-    const val homeRoute = "HomeScreen"
-}
+import com.example.lovecounter.presentation.onboarding.OnboardingScreen
+import com.example.lovecounter.presentation.home.HomeScreen
 
 @Composable
 fun NavigationGraph(
@@ -22,21 +16,21 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = onboardingRoute
+        startDestination = Screen.Onboarding
     ) {
 
-        composable(route = onboardingRoute) {
+        composable<Screen.Onboarding> {
             OnboardingScreen(
                 onFinishClicked = {
-                    navController.navigate(homeRoute) {
-                        popUpTo(onboardingRoute) {
+                    navController.navigate(Screen.Login) {
+                        popUpTo(Screen.Onboarding) {
                             inclusive = true
                         }
                     }
                 },
                 onSkipClicked = {
-                    navController.navigate(homeRoute) {
-                        popUpTo(onboardingRoute) {
+                    navController.navigate(Screen.Home) {
+                        popUpTo(Screen.Onboarding) {
                             inclusive = true
                         }
                     }
@@ -44,8 +38,8 @@ fun NavigationGraph(
             )
         }
 
-        composable(route = homeRoute) {
-            OnboardingScreen({}){}
+        composable<Screen.Login> {
+            HomeScreen()
         }
     }
 }

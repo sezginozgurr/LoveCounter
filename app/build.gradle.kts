@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.serializable.plugin)
 }
 
 android {
@@ -91,4 +92,7 @@ dependencies {
     implementation(libs.glide.compose)
 
     implementation(libs.lottie.compose)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.material.icons.extended)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
 }

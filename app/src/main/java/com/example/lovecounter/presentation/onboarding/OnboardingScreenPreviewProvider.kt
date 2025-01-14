@@ -1,4 +1,4 @@
-package com.example.lovecounter.ui.home
+package com.example.lovecounter.presentation.onboarding
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
