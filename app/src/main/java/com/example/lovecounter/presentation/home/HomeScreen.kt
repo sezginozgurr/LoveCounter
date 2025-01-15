@@ -22,8 +22,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,12 +42,15 @@ import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.theme.AppColor
 import com.example.lovecounter.presentation.theme.White
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun HomeScreen() {
-
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(AppColor)
             .verticalScroll(rememberScrollState())
@@ -159,7 +167,10 @@ private fun DatingStory() {
             .padding(bottom = 16.dp)
     ) {
         val list = listOf("1", "2", "3", "4")
-        Row(Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            Modifier.padding(top = 12.dp, start = 12.dp, end = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 text = "Tanışma Hikayeleri",
                 fontWeight = FontWeight.Bold,

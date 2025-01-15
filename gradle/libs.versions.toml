@@ -20,6 +20,7 @@ navigation = "2.8.4"
 lottie-compose = "6.1.0"
 firebase = "33.6.0"
 kotlinXSerialization = "1.7.3"
+datastoreCoreAndroid = "1.1.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -53,6 +54,7 @@ glide-compose = { group = "com.github.bumptech.glide", name = "compose", version
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie-compose" }
 firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinXSerialization" }
+datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

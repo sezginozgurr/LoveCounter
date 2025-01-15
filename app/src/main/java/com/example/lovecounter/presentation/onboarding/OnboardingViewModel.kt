@@ -1,6 +1,8 @@
 package com.example.lovecounter.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.lovecounter.data.repository.DataStoreRepository
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiAction
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiEffect
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
@@ -12,10 +14,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor() : ViewModel() {
+class OnboardingViewModel @Inject constructor(
+    private val dataStoreRepository: DataStoreRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
@@ -33,5 +38,11 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
 
     private suspend fun emitUiEffect(uiEffect: UiEffect) {
         _uiEffect.send(uiEffect)
+    }
+
+    fun completeOnboarding() {
+        viewModelScope.launch {
+            dataStoreRepository.completeOnboarding()
+        }
     }
 }

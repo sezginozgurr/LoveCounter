@@ -20,3 +20,5 @@ val indicatorGray = Color(0xFF696867)
 val indicatorSelectColor = Color(0xFF3F51B5)
 
 val AppColor = Color(0xFFE1534E)
+
+val SelectedItemColor = Color(0xFFFFC107)

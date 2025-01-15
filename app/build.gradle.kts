@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.datastore.core.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
@@ -95,4 +96,9 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.material.icons.extended)
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation(libs.datastore.core.android)
 }
