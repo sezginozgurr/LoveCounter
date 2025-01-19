@@ -29,6 +29,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -45,85 +47,77 @@ import kotlinx.coroutines.launch
 @Composable
 fun OnboardingScreen(
     onFinishClicked: () -> Unit,
-    onSkipClicked: () -> Unit
-    /* uiState: UiState,
-    uiEffect: Flow<OnboardingContract.UiEffect>,
-    onAction: (OnboardingContract.UiAction) -> Unit */
 ) {
     val onboardingPages = getOnboardingData()
+    val pagerState = rememberPagerState(
+        initialPage = 0, 
+        initialPageOffsetFraction = 0f
+    ) { onboardingPages.size }
 
-    val pagerState =
-        rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0f) { onboardingPages.size }
-    val coroutineScope = rememberCoroutineScope()
-
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.linearGradient(
                     colors = listOf(SoulMatesOrangeStartColor, SoulMatesOrangeEndColor)
                 )
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-
-        /*Button(
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(top = 24.dp, end = 24.dp)
-                .width(130.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = TransparentWhite),
-            shape = RoundedCornerShape(12.dp),
-            onClick = onSkipClicked
-        ) {
-            Text(text = stringResource(R.string.skip))
-        } */
-
-
-
-        HorizontalPager(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            pageSize = PageSize.Fill,
-            state = pagerState
-        ) { page ->
-            PageContent(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 24.dp),
-                onboardingPages[page]
             )
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            HorizontalPager(
+                state = pagerState,
+                pageSize = PageSize.Fill,
+                modifier = Modifier.weight(1f)
+            ) { page ->
+                PageContent(
+                    onboardingData = onboardingPages[page]
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.size(12.dp))
+        // Dot Indicators
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 100.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            repeat(onboardingPages.size) { iteration ->
+                Box(
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .size(8.dp)
+                        .clip(CircleShape)
+                        .background(
+                            if (pagerState.currentPage == iteration) White
+                            else White.copy(alpha = 0.5f)
+                        )
+                )
+            }
+        }
 
-        Indicators(
-            size = onboardingPages.size,
-            index = pagerState.currentPage
-        )
-
-        Spacer(modifier = Modifier.size(12.dp))
-
-        ButtonContent(
-            isLastPage = pagerState.currentPage == onboardingPages.size - 1,
-            isFirstPage = pagerState.currentPage == 0,
-            onBackClicked = {
-                if (pagerState.currentPage == 0) {
-                    //finish()
-                } else {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                    }
-                }
-            },
-            onNextClicked = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            },
-            onFinishClicked = onFinishClicked
-        )
+        // Get Started Button
+        if (pagerState.currentPage == onboardingPages.size - 1) {
+            Button(
+                onClick = onFinishClicked,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 16.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = White),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "Get Started",
+                    color = SoulMatesOrangeEndColor,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     }
 }
 
@@ -132,104 +126,37 @@ fun PageContent(
     modifier: Modifier = Modifier,
     onboardingData: OnboardingData
 ) {
-
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        Image(
-            modifier = Modifier.padding(top = 72.dp),
-            painter = painterResource(id = R.drawable.app_logo),
-            contentDescription = "Onboarding Image"
-        )
-        Spacer(modifier = Modifier.weight(1f))
-
-        Image(
-            modifier = Modifier,
-            painter = painterResource(id = R.drawable.onboarding_first),
-            contentDescription = "Onboarding Image"
-        )
-
-        Spacer(modifier = Modifier.height(72.dp))
-
-        Text(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(horizontal = 16.dp),
-            fontSize = 16.sp,
-            color = White,
-            text = stringResource(id = onboardingData.description),
-        )
-    }
-}
-
-@Composable
-fun Indicators(modifier: Modifier = Modifier, size: Int, index: Int) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = modifier
-    ) {
-        repeat(size) {
-            Box(
-                modifier = Modifier
-                    .size(if (it == index) 10.dp else 8.dp)
-                    .clip(shape = CircleShape)
-                    .background(
-                        if (it == index) indicatorSelectColor else TransparentWhite
-                    )
-            )
-        }
-    }
-}
-
-@Composable
-fun ButtonContent(
-    isLastPage: Boolean,
-    isFirstPage: Boolean,
-    onBackClicked: () -> Unit,
-    onNextClicked: () -> Unit,
-    onFinishClicked: () -> Unit
-) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 24.dp)
+            .fillMaxSize()
+            .padding(horizontal = 24.dp)
     ) {
-        if (!isFirstPage) {
-            Button(
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .width(130.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = TransparentWhite),
-                shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp),
-                onClick = onBackClicked
-            ) {
-                Text(text = stringResource(R.string.back))
-            }
-        }
-
-        Button(
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .width(130.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = TransparentWhite),
-            shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp),
-            onClick = {
-                if (isLastPage) {
-                    onFinishClicked()
-                } else {
-                    onNextClicked()
-                }
-            }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (isLastPage) {
-                Text(text = stringResource(R.string.finish))
-            } else {
-                Text(text = stringResource(R.string.next))
-            }
+            // Logo
+            Image(
+                modifier = Modifier.padding(top = 48.dp),
+                painter = painterResource(id = R.drawable.app_logo),
+                contentDescription = "App Logo"
+            )
+
+            // Onboarding Image
+            Image(
+                modifier = Modifier.padding(top = 32.dp),
+                painter = painterResource(id = onboardingData.image),
+                contentDescription = "Onboarding Image"
+            )
+
+            // Description Text
+            Text(
+                modifier = Modifier.padding(top = 24.dp),
+                fontSize = 16.sp,
+                color = White,
+                text = stringResource(id = onboardingData.description),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
@@ -240,9 +167,6 @@ fun HomeScreenPreview(
     @PreviewParameter(OnboardingScreenPreviewProvider::class) uiState: UiState,
 ) {
     OnboardingScreen(
-        {}, {}
-        /* uiState = uiState,
-        uiEffect = emptyFlow(),
-        onAction = {}, */
+        {}
     )
 }

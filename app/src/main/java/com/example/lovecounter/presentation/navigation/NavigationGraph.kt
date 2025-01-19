@@ -50,12 +50,6 @@ fun NavigationGraph(
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Onboarding.route) { inclusive = true }
                     }
-                },
-                onSkipClicked = {
-                    viewModel.completeOnboarding()
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Onboarding.route) { inclusive = true }
-                    }
                 }
             )
         }
