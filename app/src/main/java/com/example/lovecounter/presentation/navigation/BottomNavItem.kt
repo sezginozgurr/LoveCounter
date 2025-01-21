@@ -1,38 +1,36 @@
 package com.example.lovecounter.presentation.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.PhotoLibrary
-import androidx.compose.material.icons.outlined.Create
-import androidx.compose.material.icons.outlined.People
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
+import com.example.lovecounter.R
 
 sealed class BottomNavItem(
     val route: Screen,
-    val icon: ImageVector,
+    val iconResId: Int,
     val title: String
 ) {
     data object Love : BottomNavItem(
         route = Screen.Home,
-        icon = Icons.Default.Favorite,
+        iconResId = R.drawable.tab_1,
         title = "Aşk"
     )
 
     data object Moments : BottomNavItem(
         route = Screen.Memories,
-        icon = Icons.Outlined.People,
+        iconResId = R.drawable.tab_2,
         title = "Anlar"
     )
 
     data object Gallery : BottomNavItem(
         route = Screen.Profile,
-        icon = Icons.Default.PhotoLibrary,
+        iconResId = R.drawable.tab_3,
         title = "Galeri"
     )
 
     data object Notes : BottomNavItem(
         route = Screen.Settings,
-        icon = Icons.Outlined.Create,
+        iconResId = R.drawable.tab_4,
         title = "Notlar"
     )
 

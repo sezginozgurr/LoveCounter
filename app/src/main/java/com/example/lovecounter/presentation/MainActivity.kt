@@ -23,21 +23,25 @@ import com.example.lovecounter.presentation.theme.MyappTheme
 import com.example.lovecounter.presentation.components.CustomBottomNavigation
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.Surface
+import androidx.compose.material3.MaterialTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
         setContent {
             MyappTheme {
                 val navController = rememberNavController()
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
+                val currentBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = currentBackStackEntry?.destination?.route
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     containerColor = Color(0xFFF5F5F5),
+                    contentColor = Color.Black,
                     bottomBar = {
                         when (currentRoute) {
                             Screen.Home.route,
@@ -56,18 +60,25 @@ class MainActivity : ComponentActivity() {
                                         }
                                     },
                                     onFabClick = {
-                                        // FAB tıklama işlemi
+                                        // TODO: FAB tıklama işlemi
                                     }
                                 )
                             }
                         }
                     }
                 ) { paddingValues ->
-                    NavigationGraph(
-                        navController = navController,
-                        startDestination = Screen.Splash.route,
-                        modifier = Modifier.padding(paddingValues)
-                    )
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        NavigationGraph(
+                            navController = navController,
+                            startDestination = Screen.Splash.route,
+                            modifier = Modifier
+                        )
+                    }
                 }
             }
         }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.lovecounter.presentation.navigation.BottomNavItem
@@ -57,23 +58,25 @@ fun CustomBottomNavigation(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 16.dp),
+                    .padding(horizontal = 24.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // İlk iki icon
                 BottomNavItem.items.take(2).forEach { item ->
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(vertical = 2.dp)
                     ) {
                         IconButton(
                             onClick = { onNavigate(item.route.route) },
-                            modifier = Modifier.size(48.dp)
+                            modifier = Modifier.size(64.dp)
                         ) {
                             Icon(
-                                imageVector = item.icon,
+                                painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
-                                modifier = Modifier.size(24.dp),
+                                modifier = Modifier.size(36.dp),
                                 tint = if (currentRoute == item.route.route) 
                                     AppColor 
                                 else 
@@ -84,7 +87,7 @@ fun CustomBottomNavigation(
                         if (currentRoute == item.route.route) {
                             Box(
                                 modifier = Modifier
-                                    .width(24.dp)
+                                    .width(32.dp)
                                     .height(2.dp)
                                     .background(SelectedItemColor)
                             )
@@ -95,21 +98,22 @@ fun CustomBottomNavigation(
                 }
 
                 // FAB için boşluk
-                Spacer(modifier = Modifier.width(56.dp))
+                Spacer(modifier = Modifier.width(72.dp))
 
                 // Son iki icon
                 BottomNavItem.items.takeLast(2).forEach { item ->
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
                         IconButton(
                             onClick = { onNavigate(item.route.route) },
-                            modifier = Modifier.size(48.dp)
+                            modifier = Modifier.size(64.dp)
                         ) {
                             Icon(
-                                imageVector = item.icon,
+                                painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
-                                modifier = Modifier.size(24.dp),
+                                modifier = Modifier.size(36.dp),
                                 tint = if (currentRoute == item.route.route) 
                                     AppColor 
                                 else 
@@ -120,7 +124,7 @@ fun CustomBottomNavigation(
                         if (currentRoute == item.route.route) {
                             Box(
                                 modifier = Modifier
-                                    .width(24.dp)
+                                    .width(32.dp)
                                     .height(2.dp)
                                     .background(SelectedItemColor)
                             )

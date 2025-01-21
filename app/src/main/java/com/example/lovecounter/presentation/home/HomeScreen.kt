@@ -43,6 +43,11 @@ import com.example.lovecounter.R
 import com.example.lovecounter.presentation.theme.AppColor
 import com.example.lovecounter.presentation.theme.White
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
+import com.example.lovecounter.presentation.components.CustomDatePicker
+import com.example.lovecounter.presentation.home.HomeViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
 
 @Composable
 fun HomeScreen(
@@ -79,7 +84,7 @@ fun HomeScreen(
 
         ProfilePictures({}, {}) //click profile
 
-        DaySpend()
+        DaySpend(viewModel)
 
         Text(
             text = "Birlikte Geçirilen zaman 5 yıl 15 ay 15 gün",
@@ -221,10 +226,13 @@ private fun DatingStory() {
 }
 
 @Composable
-private fun DaySpend() {
+private fun DaySpend(viewModel: HomeViewModel) {
+    var showDatePicker by remember { mutableStateOf(false) }
+    val duration by viewModel.relationshipDuration.collectAsState()
+    val isDateSelected by viewModel.isDateSelected.collectAsState()
+    
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(
             36.dp,
             alignment = Alignment.CenterHorizontally
@@ -232,14 +240,18 @@ private fun DaySpend() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "15\ngun",
+            text = "${duration.days}\ngün",
             color = Color.White,
             fontSize = 40.sp,
             lineHeight = 36.sp,
-            fontWeight = FontWeight.Bold, textAlign = TextAlign.Center
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
 
-        Box(contentAlignment = Alignment.Center) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.clickable { showDatePicker = true }
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.year_bg_firstly),
                 contentDescription = "a",
@@ -250,23 +262,32 @@ private fun DaySpend() {
                 contentDescription = "b",
                 tint = Color.Unspecified
             )
-            Icon(
-                modifier = Modifier.size(52.dp),
-                painter = painterResource(id = R.drawable.ic_choose_date),
-                contentDescription = "calendar",
-                tint = Color.Unspecified
-            )
-            /* Text(
-                text = "5\nyıl",
-                color = AppColor,
-                fontSize = 40.sp,
-                lineHeight = 36.sp,
-                fontWeight = FontWeight.Bold, textAlign = TextAlign.Center
-            ) */
-
+            
+            // Tarih seçilmemişse calendar ikonunu göster
+            if (!isDateSelected) {
+                Icon(
+                    modifier = Modifier.size(52.dp),
+                    painter = painterResource(id = R.drawable.ic_choose_date),
+                    contentDescription = "calendar",
+                    tint = Color.Unspecified
+                )
+            }
+            
+            // Tarih seçilmişse yıl bilgisini göster
+            if (isDateSelected) {
+                Text(
+                    text = "${duration.years}\nyıl",
+                    color = AppColor,
+                    fontSize = 40.sp,
+                    lineHeight = 36.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
+        
         Text(
-            text = "15\nay",
+            text = "${duration.months}\nay",
             color = Color.White,
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
@@ -274,10 +295,25 @@ private fun DaySpend() {
             textAlign = TextAlign.Center
         )
     }
+
+    CustomDatePicker(
+        showDialog = showDatePicker,
+        onDismiss = { showDatePicker = false },
+        onDateSelected = { selectedDate ->
+            viewModel.updateStartDate(selectedDate)
+        }
+    )
 }
 
 @Composable
 private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) {
+    var showMaleImagePicker by remember { mutableStateOf(false) }
+    var showFemaleImagePicker by remember { mutableStateOf(false) }
+    
+    // Seçilen profil fotoğrafları için state
+    var maleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_male) }
+    var femaleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_female) }
+
     Row(
         Modifier
             .fillMaxWidth()
@@ -287,12 +323,13 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
     ) {
         Column {
             Image(
-                painter = painterResource(id = R.drawable.home_default_profile_female),
-                contentDescription = "banner",
+                painter = painterResource(id = maleProfileImage),
+                contentDescription = "Erkek profil",
                 modifier = Modifier
                     .width(72.dp)
                     .height(72.dp)
-                    .clickable { onClickMale() },
+                    .clickable { showMaleImagePicker = true },
+                contentScale = ContentScale.Crop
             )
             Text(
                 text = "Erkek",
@@ -304,15 +341,14 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
 
         Column {
             Image(
-                painter = painterResource(id = R.drawable.home_default_profile_male),
-                contentDescription = "banner",
+                painter = painterResource(id = femaleProfileImage),
+                contentDescription = "Kadın profil",
                 modifier = Modifier
                     .width(72.dp)
                     .height(72.dp)
-                    .clickable { onClickFemale() },
+                    .clickable { showFemaleImagePicker = true },
                 contentScale = ContentScale.Crop
             )
-
             Text(
                 text = "Kadın",
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp),
@@ -321,6 +357,24 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
             )
         }
     }
+
+    // Erkek profil fotoğrafı seçici
+    ProfileImagePickerDialog(
+        showDialog = showMaleImagePicker,
+        onDismiss = { showMaleImagePicker = false },
+        onImageSelected = { selectedImage ->
+            maleProfileImage = selectedImage
+        }
+    )
+
+    // Kadın profil fotoğrafı seçici
+    ProfileImagePickerDialog(
+        showDialog = showFemaleImagePicker,
+        onDismiss = { showFemaleImagePicker = false },
+        onImageSelected = { selectedImage ->
+            femaleProfileImage = selectedImage
+        }
+    )
 }
 
 @Preview

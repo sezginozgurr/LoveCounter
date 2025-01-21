@@ -22,3 +22,7 @@ val indicatorSelectColor = Color(0xFF3F51B5)
 val AppColor = Color(0xFFE1534E)
 
 val SelectedItemColor = Color(0xFFFFC107)
+
+val BackgroundColor = Color(0xFFF5F5F5)
+val ContentColor = Color.Black
+val SurfaceColor = Color.White
