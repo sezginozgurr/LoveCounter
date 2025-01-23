@@ -48,6 +48,7 @@ import com.example.lovecounter.presentation.components.CustomDatePicker
 import com.example.lovecounter.presentation.home.HomeViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableIntStateOf
+import com.example.lovecounter.presentation.components.Gender
 
 @Composable
 fun HomeScreen(
@@ -310,7 +311,6 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
     var showMaleImagePicker by remember { mutableStateOf(false) }
     var showFemaleImagePicker by remember { mutableStateOf(false) }
     
-    // Seçilen profil fotoğrafları için state
     var maleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_male) }
     var femaleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_female) }
 
@@ -364,7 +364,8 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
         onDismiss = { showMaleImagePicker = false },
         onImageSelected = { selectedImage ->
             maleProfileImage = selectedImage
-        }
+        },
+        gender = Gender.MALE
     )
 
     // Kadın profil fotoğrafı seçici
@@ -373,7 +374,8 @@ private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) 
         onDismiss = { showFemaleImagePicker = false },
         onImageSelected = { selectedImage ->
             femaleProfileImage = selectedImage
-        }
+        },
+        gender = Gender.FEMALE
     )
 }
 
