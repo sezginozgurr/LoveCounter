@@ -28,13 +28,13 @@ sealed class BottomNavItem(
         title = "Galeri"
     )
 
-    data object Notes : BottomNavItem(
+    data object Settings : BottomNavItem(
         route = Screen.Settings,
         iconResId = R.drawable.tab_4,
-        title = "Notlar"
+        title = "Ayarlar"
     )
 
     companion object {
-        val items = listOf(Love, Moments, Gallery, Notes)
+        val items = listOf(Love, Moments, Gallery, Settings)
     }
 } 

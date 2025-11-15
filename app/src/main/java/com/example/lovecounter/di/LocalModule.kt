@@ -2,7 +2,6 @@ package com.example.lovecounter.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.lovecounter.data.source.local.MainDao
 import com.example.lovecounter.data.source.local.MainRoomDB
 import dagger.Module
@@ -16,11 +15,11 @@ import dagger.hilt.components.SingletonComponent
 object LocalModule {
 
     @Provides
-    fun provideRoomDatabase(@ApplicationContext context: Context): RoomDatabase {
+    fun provideRoomDatabase(@ApplicationContext context: Context): MainRoomDB {
         return Room.databaseBuilder(
             context,
             MainRoomDB::class.java,
-            MainRoomDB::class.simpleName
+            "main_database"
         ).build()
     }
 

@@ -92,6 +92,9 @@ dependencies {
     // Glide
     implementation(libs.glide.compose)
 
+    // Coil
+    implementation(libs.coil.compose)
+
     implementation(libs.lottie.compose)
     implementation(libs.kotlinx.serialization)
     implementation(libs.material.icons.extended)

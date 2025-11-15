@@ -83,7 +83,7 @@ fun HomeScreen(
             color = Color.White
         )
 
-        ProfilePictures({}, {}) //click profile
+        ProfilePictures(onClickMale = {}, onClickFemale = {}) //click profile
 
         DaySpend(viewModel)
 

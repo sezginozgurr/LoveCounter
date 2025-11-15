@@ -44,4 +44,9 @@ sealed interface Screen {
     data object Splash : Screen {
         override val route = "splash"
     }
+
+    @Serializable
+    data object AddMemory : Screen {
+        override val route = "add_memory"
+    }
 }

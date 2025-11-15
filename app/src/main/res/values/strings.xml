@@ -11,4 +11,10 @@
     <string name="back">Back</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
+    
+    <string name="settings">Ayarlar</string>
+    <string name="daily_memories">Günlük Anılarım</string>
+    <string name="title">Başlık</string>
+    <string name="subtitle">Lorem Ipsum</string>
+    <string name="add">Ekle</string>
 </resources>
