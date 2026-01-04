@@ -19,13 +19,16 @@ import com.example.lovecounter.delegation.dialogclient.DialogClientCollector
 import com.example.lovecounter.delegation.navigator.LocalNavHostController
 import com.example.lovecounter.delegation.navigator.NavigationClientCollector
 import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
+import com.example.lovecounter.presentation.addmemory.AddMemoryViewModel
 import com.example.lovecounter.presentation.components.CustomBottomNavigation
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.home.HomeViewModel
 import com.example.lovecounter.presentation.memories.MemoriesScreen
+import com.example.lovecounter.presentation.memories.MemoriesViewModel
 import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
 import com.example.lovecounter.presentation.settings.SettingsScreen
+import com.example.lovecounter.presentation.settings.SettingsViewModel
 import com.example.lovecounter.presentation.specialday.SpecialDayViewModel
 import com.example.lovecounter.presentation.specialday.SpecialDaysScreen
 import com.example.lovecounter.presentation.splash.SplashScreen
@@ -98,7 +101,7 @@ fun NavigationGraph() {
             }
 
             composable<Screen.Memories> {
-                val viewModel = hiltViewModel<com.example.lovecounter.presentation.memories.MemoriesViewModel>()
+                val viewModel = hiltViewModel<MemoriesViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 NavigationClientCollector(viewModel.navigationClientEffect)
                 MemoriesScreen(
@@ -112,7 +115,7 @@ fun NavigationGraph() {
             }
 
             composable<Screen.Settings> {
-                val viewModel = hiltViewModel<com.example.lovecounter.presentation.settings.SettingsViewModel>()
+                val viewModel = hiltViewModel<SettingsViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 NavigationClientCollector(viewModel.navigationClientEffect)
                 SettingsScreen(
@@ -122,7 +125,7 @@ fun NavigationGraph() {
             }
 
             composable<Screen.AddMemory> {
-                val viewModel = hiltViewModel<com.example.lovecounter.presentation.addmemory.AddMemoryViewModel>()
+                val viewModel = hiltViewModel<AddMemoryViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 NavigationClientCollector(viewModel.navigationClientEffect)
                 AddMemoryScreen(
