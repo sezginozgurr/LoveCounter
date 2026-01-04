@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -15,6 +16,11 @@ android {
 
     android.buildFeatures.buildConfig = true
 
+    val localProperties = Properties().apply {
+        val propsFile = rootProject.file("local.properties")
+        if (propsFile.exists()) load(propsFile.inputStream())
+    }
+
     defaultConfig {
         applicationId = "com.example.lovecounter"
         minSdk = 24
@@ -26,29 +32,57 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file(localProperties.getProperty("storeFile") ?: "storeFile")
+            storePassword = localProperties.getProperty("keyPassword") ?: "keyPassword"
+            keyAlias = localProperties.getProperty("key0") ?: "key0"
+            keyPassword = localProperties.getProperty("keyPassword") ?: "keyPassword"
+        }
+        create("release") {
+            storeFile = rootProject.file(localProperties.getProperty("storeFile") ?: "storeFile")
+            storePassword = localProperties.getProperty("keyPassword") ?: "keyPassword"
+            keyAlias = localProperties.getProperty("key0") ?: "key0"
+            keyPassword = localProperties.getProperty("keyPassword") ?: "keyPassword"
         }
     }
+
+    buildTypes {
+        getByName("debug") {
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlin {
         compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
     }
+
     buildFeatures {
         compose = true
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+
+    composeCompiler {
+        stabilityConfigurationFiles.add(
+            rootProject.layout.projectDirectory.file("stability_config.conf")
+        )
     }
 }
 
