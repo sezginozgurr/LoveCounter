@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MemoriesViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepository,
 ) : ViewModel() {
 
     val memories: StateFlow<List<Memory>> = repository.getMemories()

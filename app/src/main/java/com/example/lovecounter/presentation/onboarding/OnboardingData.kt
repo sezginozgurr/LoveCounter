@@ -7,7 +7,7 @@ import com.example.lovecounter.R
 data class OnboardingData(
     @StringRes val title: Int,
     @StringRes val description: Int,
-    val image: Int
+    val image: Int,
 )
 
 @SuppressLint("ResourceType")

@@ -1,36 +1,53 @@
 package com.example.lovecounter.presentation.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import android.graphics.Paint
+import android.widget.NumberPicker
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import android.widget.NumberPicker
-import java.util.Date
 import com.example.lovecounter.presentation.theme.AppColor
-import android.graphics.Paint
-import android.widget.TextView
+import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDatePicker(
     showDialog: Boolean,
     onDismiss: () -> Unit,
-    onDateSelected: (Date) -> Unit
+    onDateSelected: (Date) -> Unit,
 ) {
     if (showDialog) {
         val context = LocalContext.current
-        
+
         var selectedDay by remember { mutableStateOf(1) }
         var selectedMonth by remember { mutableStateOf(0) }
         var selectedYear by remember { mutableStateOf(2024) }
-        
+
         val months = arrayOf(
             "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
             "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
@@ -54,9 +71,9 @@ fun CustomDatePicker(
                     text = "Tarih Seçin",
                     style = MaterialTheme.typography.titleMedium
                 )
-                
+
                 Spacer(modifier = Modifier.height(24.dp))
-                
+
                 // NumberPicker'ların metin rengini siyah yapan fonksiyon
                 fun NumberPicker.setTextColor() {
                     val pickerFields = NumberPicker::class.java.declaredFields
@@ -68,7 +85,7 @@ fun CustomDatePicker(
                             }
                         }
                     }
-                    
+
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                     wrapSelectorWheel = false
                     textColor = android.graphics.Color.BLACK
@@ -94,7 +111,7 @@ fun CustomDatePicker(
                         },
                         modifier = Modifier.weight(1f)
                     )
-                    
+
                     // Ay Seçici
                     AndroidView(
                         factory = { context ->
@@ -111,7 +128,7 @@ fun CustomDatePicker(
                         },
                         modifier = Modifier.weight(1f)
                     )
-                    
+
                     // Yıl Seçici
                     AndroidView(
                         factory = { context ->
@@ -128,9 +145,9 @@ fun CustomDatePicker(
                         modifier = Modifier.weight(1f)
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(24.dp))
-                
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
@@ -138,9 +155,9 @@ fun CustomDatePicker(
                     TextButton(onClick = onDismiss) {
                         Text("İptal")
                     }
-                    
+
                     Spacer(modifier = Modifier.width(8.dp))
-                    
+
                     Button(
                         onClick = {
                             val calendar = java.util.Calendar.getInstance()
@@ -153,7 +170,7 @@ fun CustomDatePicker(
                         Text("Tamam")
                     }
                 }
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

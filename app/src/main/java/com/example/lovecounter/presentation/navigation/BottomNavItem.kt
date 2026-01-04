@@ -1,14 +1,11 @@
 package com.example.lovecounter.presentation.navigation
 
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
 import com.example.lovecounter.R
 
 sealed class BottomNavItem(
     val route: Screen,
     val iconResId: Int,
-    val title: String
+    val title: String,
 ) {
     data object Love : BottomNavItem(
         route = Screen.Home,

@@ -22,10 +22,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,21 +40,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lovecounter.R
+import com.example.lovecounter.presentation.components.CustomDatePicker
+import com.example.lovecounter.presentation.components.Gender
+import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
 import com.example.lovecounter.presentation.theme.AppColor
 import com.example.lovecounter.presentation.theme.White
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
-import com.example.lovecounter.presentation.components.CustomDatePicker
-import com.example.lovecounter.presentation.home.HomeViewModel
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableIntStateOf
-import com.example.lovecounter.presentation.components.Gender
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     Column(
         modifier = modifier
@@ -231,7 +229,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
     var showDatePicker by remember { mutableStateOf(false) }
     val duration by viewModel.relationshipDuration.collectAsState()
     val isDateSelected by viewModel.isDateSelected.collectAsState()
-    
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(
@@ -263,7 +261,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
                 contentDescription = "b",
                 tint = Color.Unspecified
             )
-            
+
             // Tarih seçilmemişse calendar ikonunu göster
             if (!isDateSelected) {
                 Icon(
@@ -273,7 +271,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
                     tint = Color.Unspecified
                 )
             }
-            
+
             // Tarih seçilmişse yıl bilgisini göster
             if (isDateSelected) {
                 Text(
@@ -286,7 +284,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
                 )
             }
         }
-        
+
         Text(
             text = "${duration.months}\nay",
             color = Color.White,
@@ -310,7 +308,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
 private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) {
     var showMaleImagePicker by remember { mutableStateOf(false) }
     var showFemaleImagePicker by remember { mutableStateOf(false) }
-    
+
     var maleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_male) }
     var femaleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_female) }
 

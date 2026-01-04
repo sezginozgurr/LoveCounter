@@ -16,6 +16,6 @@ object DataStoreModule {
     @Provides
     @Singleton
     fun provideDataStoreRepository(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DataStoreRepository = DataStoreRepository(context)
 } 

@@ -15,11 +15,11 @@ data class Event(
     val title: String,
     val date: String,
     val time: String,
-    @DrawableRes val iconRes: Int
+    @DrawableRes val iconRes: Int,
 )
 
 data class ProfileUiState(
-    val events: List<Event> = emptyList()
+    val events: List<Event> = emptyList(),
 )
 
 @HiltViewModel

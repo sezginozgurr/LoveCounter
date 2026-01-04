@@ -39,7 +39,7 @@ import com.example.lovecounter.R
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

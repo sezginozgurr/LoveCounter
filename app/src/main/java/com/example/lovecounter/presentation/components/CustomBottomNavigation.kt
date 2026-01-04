@@ -1,16 +1,25 @@
 package com.example.lovecounter.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -24,7 +33,7 @@ import com.example.lovecounter.presentation.theme.SelectedItemColor
 fun CustomBottomNavigation(
     currentRoute: String?,
     onNavigate: (String) -> Unit,
-    onFabClick: () -> Unit
+    onFabClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -79,9 +88,9 @@ fun CustomBottomNavigation(
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
                                 modifier = Modifier.size(36.dp),
-                                tint = if (currentRoute == item.route.route) 
-                                    AppColor 
-                                else 
+                                tint = if (currentRoute == item.route.route)
+                                    AppColor
+                                else
                                     Color.Gray
                             )
                         }
@@ -116,9 +125,9 @@ fun CustomBottomNavigation(
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
                                 modifier = Modifier.size(36.dp),
-                                tint = if (currentRoute == item.route.route) 
-                                    AppColor 
-                                else 
+                                tint = if (currentRoute == item.route.route)
+                                    AppColor
+                                else
                                     Color.Gray
                             )
                         }

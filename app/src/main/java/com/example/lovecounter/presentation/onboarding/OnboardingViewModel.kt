@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -32,7 +32,7 @@ class OnboardingViewModel @Inject constructor(
     }
 
     private fun updateUiState(block: UiState.() -> UiState) {
-        
+
         _uiState.update(block)
     }
 

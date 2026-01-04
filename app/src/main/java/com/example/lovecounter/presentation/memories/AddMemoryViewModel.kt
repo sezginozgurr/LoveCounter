@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddMemoryViewModel @Inject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepository,
 ) : ViewModel() {
 
     fun addMemory(memory: Memory) {

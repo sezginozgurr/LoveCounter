@@ -6,22 +6,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.login.LoginScreen
 import com.example.lovecounter.presentation.memories.AddMemoryScreen
 import com.example.lovecounter.presentation.memories.MemoriesScreen
-import com.example.lovecounter.presentation.specialday.ProfileScreen
+import com.example.lovecounter.presentation.onboarding.OnboardingScreen
+import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
 import com.example.lovecounter.presentation.settings.SettingsScreen
+import com.example.lovecounter.presentation.specialday.ProfileScreen
 import com.example.lovecounter.presentation.splash.SplashScreen
 import com.example.lovecounter.presentation.splash.SplashViewModel
-import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     startDestination: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = navController,

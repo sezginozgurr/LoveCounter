@@ -14,7 +14,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel,
-    onNavigate: (String) -> Unit
+    onNavigate: (String) -> Unit,
 ) {
     val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
 

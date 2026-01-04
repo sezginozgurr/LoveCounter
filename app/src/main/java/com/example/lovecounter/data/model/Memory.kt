@@ -12,5 +12,5 @@ data class Memory(
     val id: Int = 0,
     val title: String,
     val subtitle: String,
-    val photoUris: List<String>
+    val photoUris: List<String>,
 )

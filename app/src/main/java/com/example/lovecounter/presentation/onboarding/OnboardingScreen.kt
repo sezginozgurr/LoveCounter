@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -22,7 +19,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,10 +35,7 @@ import com.example.lovecounter.R
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
 import com.example.lovecounter.presentation.theme.SoulMatesOrangeEndColor
 import com.example.lovecounter.presentation.theme.SoulMatesOrangeStartColor
-import com.example.lovecounter.presentation.theme.TransparentWhite
 import com.example.lovecounter.presentation.theme.White
-import com.example.lovecounter.presentation.theme.indicatorSelectColor
-import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingScreen(
@@ -50,7 +43,7 @@ fun OnboardingScreen(
 ) {
     val onboardingPages = getOnboardingData()
     val pagerState = rememberPagerState(
-        initialPage = 0, 
+        initialPage = 0,
         initialPageOffsetFraction = 0f
     ) { onboardingPages.size }
 
@@ -124,7 +117,7 @@ fun OnboardingScreen(
 @Composable
 fun PageContent(
     modifier: Modifier = Modifier,
-    onboardingData: OnboardingData
+    onboardingData: OnboardingData,
 ) {
     Box(
         modifier = Modifier

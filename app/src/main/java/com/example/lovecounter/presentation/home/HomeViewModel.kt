@@ -4,21 +4,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lovecounter.data.repository.DataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 data class RelationshipDuration(
     val days: Int = 0,
     val months: Int = 0,
-    val years: Int = 0
+    val years: Int = 0,
 )
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
     private val _relationshipDuration = MutableStateFlow(RelationshipDuration())
@@ -46,7 +48,7 @@ class HomeViewModel @Inject constructor(
     private fun calculateDuration(startDate: Date) {
         val currentDate = Date()
         val diffInMillis = currentDate.time - startDate.time
-        
+
         val days = TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
         val months = days / 30
         val years = days / 365

@@ -1,6 +1,5 @@
 package com.example.lovecounter.presentation.settings
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
@@ -40,14 +38,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.theme.MyappTheme
 
 @Composable
 fun SettingsScreen(
     onAddMemory: () -> Unit = {},
-    onItemClick: (Int) -> Unit = {}
+    onItemClick: (Int) -> Unit = {},
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -67,7 +64,7 @@ fun SettingsScreen(
 @Composable
 private fun DailyMemoriesPanel(
     onAddMemory: () -> Unit,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
 ) {
     Box {
         Card(
@@ -161,7 +158,7 @@ private fun Header() {
 private fun MemoryItem(
     title: String,
     subtitle: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -191,7 +188,7 @@ private class CutHeaderShape(private val density: Density) : Shape {
     override fun createOutline(
         size: androidx.compose.ui.geometry.Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): androidx.compose.ui.graphics.Outline {
         val path = Path().apply {
             lineTo(0f, size.height * 0.7f)
