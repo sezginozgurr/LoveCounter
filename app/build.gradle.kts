@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -9,14 +11,14 @@ plugins {
 
 android {
     namespace = "com.example.lovecounter"
-    compileSdk = 35
+    compileSdk = 36
 
     android.buildFeatures.buildConfig = true
 
     defaultConfig {
         applicationId = "com.example.lovecounter"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -37,8 +39,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
     }
     buildFeatures {
         compose = true
@@ -56,9 +58,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.datastore.core.android)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junit.ext)
-    androidTestImplementation(libs.espresso.core)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.activity.compose)
@@ -98,10 +97,9 @@ dependencies {
     implementation(libs.lottie.compose)
     implementation(libs.kotlinx.serialization)
     implementation(libs.material.icons.extended)
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0")
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.preferences.core)
     implementation(libs.datastore.core.android)
 }
