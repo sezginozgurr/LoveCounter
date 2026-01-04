@@ -15,12 +15,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.lovecounter.delegation.dialogclient.DialogClientCollector
 import com.example.lovecounter.delegation.navigator.LocalNavHostController
 import com.example.lovecounter.delegation.navigator.NavigationClientCollector
+import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
 import com.example.lovecounter.presentation.components.CustomBottomNavigation
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.home.HomeViewModel
-import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
 import com.example.lovecounter.presentation.memories.MemoriesScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
@@ -89,6 +90,7 @@ fun NavigationGraph() {
                 val viewModel = hiltViewModel<HomeViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 NavigationClientCollector(viewModel.navigationClientEffect)
+                DialogClientCollector(viewModel.dialogClientEffect)
                 HomeScreen(
                     uiState = uiState,
                     onAction = viewModel::onAction,

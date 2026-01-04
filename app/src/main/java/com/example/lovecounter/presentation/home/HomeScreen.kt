@@ -36,7 +36,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
-import com.example.lovecounter.presentation.components.CustomDatePicker
 import com.example.lovecounter.presentation.components.Gender
 import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
 import com.example.lovecounter.presentation.theme.AppColor
@@ -96,12 +95,6 @@ fun HomeScreen(
 
         DatingStory()
     }
-
-    CustomDatePicker(
-        showDialog = uiState.showDatePicker,
-        onDismiss = { onAction(HomeContract.UiAction.OnDismissDatePicker) },
-        onDateSelected = { onAction(HomeContract.UiAction.OnDateSelected(it.time)) }
-    )
 
     ProfileImagePickerDialog(
         showDialog = uiState.showMaleImagePicker,
@@ -367,7 +360,6 @@ private fun HomeScreenPreview() {
         uiState = HomeContract.UiState(
             relationshipDuration = RelationshipDuration(2, 3, 10),
             isDateSelected = true,
-            showDatePicker = false
         ),
         onAction = {},
     )

@@ -3,6 +3,8 @@ package com.example.lovecounter.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lovecounter.data.repository.DataStoreRepository
+import com.example.lovecounter.delegation.dialogclient.DialogClient
+import com.example.lovecounter.delegation.dialogclient.dialogClient
 import com.example.lovecounter.delegation.mvi.MVI
 import com.example.lovecounter.delegation.mvi.mvi
 import com.example.lovecounter.delegation.navigator.NavigationClient
@@ -18,7 +20,8 @@ class HomeViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel(),
     MVI<HomeContract.UiState, HomeContract.UiAction> by mvi(HomeContract.UiState()),
-    NavigationClient by navigationClient() {
+    NavigationClient by navigationClient(),
+    DialogClient by dialogClient() {
 
     init {
         viewModelScope.launch {
@@ -31,8 +34,7 @@ class HomeViewModel @Inject constructor(
 
     override fun onAction(uiAction: HomeContract.UiAction) {
         when (uiAction) {
-            HomeContract.UiAction.OnSelectDateClick -> updateUiState { copy(showDatePicker = true) }
-            HomeContract.UiAction.OnDismissDatePicker -> updateUiState { copy(showDatePicker = false) }
+            HomeContract.UiAction.OnSelectDateClick -> handleSelectDateClick()
             HomeContract.UiAction.OnDismissFemaleImagePicker -> updateUiState { copy(showFemaleImagePicker = false) }
             HomeContract.UiAction.OnDismissMaleImagePicker -> updateUiState { copy(showMaleImagePicker = false) }
             HomeContract.UiAction.OnFemaleImageClick -> updateUiState { copy(showFemaleImagePicker = true) }
@@ -44,12 +46,11 @@ class HomeViewModel @Inject constructor(
             is HomeContract.UiAction.OnMaleImageSelected -> {
                 updateUiState { copy(maleImage = uiAction.image, showMaleImagePicker = false) }
             }
-
-            is HomeContract.UiAction.OnDateSelected -> {
-                updateUiState { copy(showDatePicker = false) }
-                updateStartDate(Date(uiAction.date))
-            }
         }
+    }
+
+    private fun handleSelectDateClick() = viewModelScope.launch {
+        showDatePickerDialog { updateStartDate(it) }
     }
 
     private fun updateStartDate(date: Date) {

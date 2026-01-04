@@ -5,6 +5,7 @@ import com.example.lovecounter.delegation.dialogclient.DialogClientEffect.ShowDi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import java.util.Date
 
 interface DialogClient {
     val dialogClientEffect: Flow<DialogClientEffect>
@@ -19,6 +20,10 @@ interface DialogClient {
         onDismiss: () -> Unit = {},
         isCancelable: Boolean = false,
         dismissOnAction: Boolean = true,
+    )
+
+    suspend fun showDatePickerDialog(
+        onDateSelected: (Date) -> Unit,
     )
 
     suspend fun hideDialog()
@@ -50,6 +55,16 @@ class DialogClientDelegate internal constructor() : DialogClient {
                 isCancelable = isCancelable,
                 onDismiss = onDismiss,
                 dismissOnAction = dismissOnAction,
+            ),
+        )
+    }
+
+    override suspend fun showDatePickerDialog(
+        onDateSelected: (Date) -> Unit,
+    ) {
+        emitEffect(
+            DialogClientEffect.ShowDatePickerDialog(
+                onDateSelected = onDateSelected,
             ),
         )
     }
