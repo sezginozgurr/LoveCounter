@@ -20,7 +20,7 @@ import com.example.lovecounter.delegation.navigator.NavigationClientCollector
 import com.example.lovecounter.presentation.components.CustomBottomNavigation
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.home.HomeViewModel
-import com.example.lovecounter.presentation.memories.AddMemoryScreen
+import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
 import com.example.lovecounter.presentation.memories.MemoriesScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingViewModel

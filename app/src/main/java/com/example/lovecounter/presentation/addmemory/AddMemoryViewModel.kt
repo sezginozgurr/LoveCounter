@@ -1,4 +1,4 @@
-package com.example.lovecounter.presentation.memories
+package com.example.lovecounter.presentation.addmemory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

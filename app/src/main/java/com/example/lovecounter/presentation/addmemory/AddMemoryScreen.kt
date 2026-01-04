@@ -1,4 +1,4 @@
-package com.example.lovecounter.presentation.memories
+package com.example.lovecounter.presentation.addmemory
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
