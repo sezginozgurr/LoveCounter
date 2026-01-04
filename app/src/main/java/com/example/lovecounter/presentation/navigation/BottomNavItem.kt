@@ -13,8 +13,8 @@ sealed class BottomNavItem(
         title = "Aşk"
     )
 
-    data object Moments : BottomNavItem(
-        route = Screen.Memories,
+    data object SpecialDays : BottomNavItem(
+        route = Screen.SpecialDays,
         iconResId = R.drawable.tab_2,
         title = "Anlar"
     )
@@ -32,6 +32,6 @@ sealed class BottomNavItem(
     )
 
     companion object {
-        val items = listOf(Love, Moments, Gallery, Settings)
+        val items = listOf(Love, SpecialDays, Gallery, Settings)
     }
 } 

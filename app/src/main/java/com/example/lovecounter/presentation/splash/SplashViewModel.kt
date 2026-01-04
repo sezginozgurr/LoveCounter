@@ -15,16 +15,16 @@ class SplashViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
 ) : ViewModel() {
 
-    private val _startDestination = MutableStateFlow<String?>(null)
+    private val _startDestination = MutableStateFlow<Screen?>(null)
     val startDestination = _startDestination.asStateFlow()
 
     init {
         viewModelScope.launch {
             dataStoreRepository.isOnboardingCompleted.collect { completed ->
                 _startDestination.value = if (completed) {
-                    Screen.Login.route
+                    Screen.Home
                 } else {
-                    Screen.Onboarding.route
+                    Screen.Onboarding
                 }
             }
         }

@@ -3,50 +3,27 @@ package com.example.lovecounter.presentation.navigation
 import kotlinx.serialization.Serializable
 
 sealed interface Screen {
-    val route: String
+    @Serializable
+    data object Onboarding : Screen
 
     @Serializable
-    data object Onboarding : Screen {
-        override val route = "onboarding"
-    }
+    data object Home : Screen
 
     @Serializable
-    data object Login : Screen {
-        override val route = "login"
-    }
+    data object Memories : Screen
 
     @Serializable
-    data object Register : Screen {
-        override val route = "register"
-    }
+    data object Profile : Screen
 
     @Serializable
-    data object Home : Screen {
-        override val route = "home"
-    }
+    data object Settings : Screen
 
     @Serializable
-    data object Memories : Screen {
-        override val route = "memories"
-    }
+    data object Splash : Screen
 
     @Serializable
-    data object Profile : Screen {
-        override val route = "profile"
-    }
+    data object AddMemory : Screen
 
     @Serializable
-    data object Settings : Screen {
-        override val route = "settings"
-    }
-
-    @Serializable
-    data object Splash : Screen {
-        override val route = "splash"
-    }
-
-    @Serializable
-    data object AddMemory : Screen {
-        override val route = "add_memory"
-    }
+    data object SpecialDays : Screen
 }

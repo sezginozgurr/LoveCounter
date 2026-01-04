@@ -9,12 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.lovecounter.presentation.navigation.Screen
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel,
-    onNavigate: (String) -> Unit,
+    onNavigate: (Screen) -> Unit,
 ) {
     val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
 

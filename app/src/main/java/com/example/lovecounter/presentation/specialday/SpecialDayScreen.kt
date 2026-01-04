@@ -21,8 +21,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,15 +32,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lovecounter.R
 
 @Composable
-fun ProfileScreen(
-    viewModel: ProfileViewModel = hiltViewModel(),
-) {
-    val uiState by viewModel.uiState.collectAsState()
-
+fun SpecialDaysScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,7 +43,7 @@ fun ProfileScreen(
     ) {
         TopSection()
         Spacer(modifier = Modifier.height(16.dp))
-        BottomSection(events = uiState.events)
+        BottomSection()
     }
 }
 
@@ -186,7 +179,7 @@ fun EventListItem(event: Event) {
 
 
 @Composable
-fun BottomSection(events: List<Event>) {
+fun BottomSection(events: List<Event> = emptyList()) {
     Box(
         modifier = Modifier
             .fillMaxSize()

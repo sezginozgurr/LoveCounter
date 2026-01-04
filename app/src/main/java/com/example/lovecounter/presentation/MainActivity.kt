@@ -12,7 +12,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.lovecounter.presentation.components.CustomBottomNavigation
@@ -31,7 +30,7 @@ class MainActivity : ComponentActivity() {
             MyappTheme {
                 val navController = rememberNavController()
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = currentBackStackEntry?.destination?.route
+                val currentRoute = currentBackStackEntry?.destination
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -39,22 +38,13 @@ class MainActivity : ComponentActivity() {
                     contentColor = Color.Black,
                     bottomBar = {
                         when (currentRoute) {
-                            Screen.Home.route,
-                            Screen.Memories.route,
-                            Screen.Profile.route,
-                            Screen.Settings.route,
+                            Screen.Home,
+                            Screen.SpecialDays,
+                            Screen.Profile,
+                            Screen.Settings,
                                 -> {
                                 CustomBottomNavigation(
-                                    currentRoute = currentRoute,
-                                    onNavigate = { route ->
-                                        navController.navigate(route) {
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
-                                            }
-                                            launchSingleTop = true
-                                            restoreState = true
-                                        }
-                                    },
+                                    navController = navController,
                                     onFabClick = {
                                         // TODO: FAB tıklama işlemi
                                     }
@@ -71,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavigationGraph(
                             navController = navController,
-                            startDestination = Screen.Splash.route,
+                            startDestination = Screen.Splash,
                             modifier = Modifier
                         )
                     }

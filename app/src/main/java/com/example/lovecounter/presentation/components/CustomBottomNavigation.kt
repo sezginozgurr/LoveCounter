@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.navigation.BottomNavItem
 import com.example.lovecounter.presentation.theme.AppColor
@@ -31,8 +33,7 @@ import com.example.lovecounter.presentation.theme.SelectedItemColor
 
 @Composable
 fun CustomBottomNavigation(
-    currentRoute: String?,
-    onNavigate: (String) -> Unit,
+    navController: NavController,
     onFabClick: () -> Unit,
 ) {
     Box(
@@ -75,27 +76,36 @@ fun CustomBottomNavigation(
             ) {
                 // İlk iki icon
                 BottomNavItem.items.take(2).forEach { item ->
+                    val currentRoute = navController.currentDestination
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                         modifier = Modifier.padding(vertical = 2.dp)
                     ) {
                         IconButton(
-                            onClick = { onNavigate(item.route.route) },
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
                             modifier = Modifier.size(64.dp)
                         ) {
                             Icon(
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
                                 modifier = Modifier.size(36.dp),
-                                tint = if (currentRoute == item.route.route)
+                                tint = if (currentRoute == item.route)
                                     AppColor
                                 else
                                     Color.Gray
                             )
                         }
                         // Seçili item için sarı çizgi
-                        if (currentRoute == item.route.route) {
+                        if (currentRoute == item.route) {
                             Box(
                                 modifier = Modifier
                                     .width(32.dp)
@@ -113,26 +123,35 @@ fun CustomBottomNavigation(
 
                 // Son iki icon
                 BottomNavItem.items.takeLast(2).forEach { item ->
+                    val currentRoute = navController.currentDestination
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
                         IconButton(
-                            onClick = { onNavigate(item.route.route) },
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
                             modifier = Modifier.size(64.dp)
                         ) {
                             Icon(
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
                                 modifier = Modifier.size(36.dp),
-                                tint = if (currentRoute == item.route.route)
+                                tint = if (currentRoute == item.route)
                                     AppColor
                                 else
                                     Color.Gray
                             )
                         }
                         // Seçili item için sarı çizgi
-                        if (currentRoute == item.route.route) {
+                        if (currentRoute == item.route) {
                             Box(
                                 modifier = Modifier
                                     .width(32.dp)
