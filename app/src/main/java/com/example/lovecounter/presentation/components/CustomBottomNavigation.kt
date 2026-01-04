@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.example.lovecounter.R
 import com.example.lovecounter.presentation.navigation.BottomNavItem
 import com.example.lovecounter.presentation.theme.AppColor
 import com.example.lovecounter.presentation.theme.SelectedItemColor
@@ -38,13 +39,14 @@ fun CustomBottomNavigation(
                 .offset(y = (-25).dp)
                 .size(56.dp)
                 .zIndex(1f),
-            containerColor = AppColor,
+            containerColor = Color.White,
             contentColor = Color.White
         ) {
             Icon(
-                imageVector = Icons.Default.Add,
+                painter = painterResource(R.drawable.ic_gift),
                 contentDescription = "Ekle",
-                modifier = Modifier.size(24.dp)
+                tint = Color.Unspecified,
+                modifier = Modifier.size(48.dp)
             )
         }
 
