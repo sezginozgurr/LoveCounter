@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "LoveCounter"
 include(":app")
-include(":common")

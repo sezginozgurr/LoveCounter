@@ -2,9 +2,11 @@ package com.example.lovecounter.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.lovecounter.data.model.MainEntityModel
+import androidx.room.TypeConverters
+import com.example.lovecounter.data.model.Memory
 
-@Database(entities = [MainEntityModel::class], version = 1, exportSchema = false)
+@Database(entities = [Memory::class], version = 1, exportSchema = false)
+@TypeConverters(UriListConverter::class)
 abstract class MainRoomDB : RoomDatabase() {
     abstract fun mainDao(): MainDao
 }
