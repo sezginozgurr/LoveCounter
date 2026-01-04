@@ -82,15 +82,6 @@ fun HomeScreen(
             onDateClick = { onAction(HomeContract.UiAction.OnSelectDateClick) }
         )
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 24.dp),
-            text = "Birlikte Geçirilen zaman 5 yıl 15 ay 15 gün",
-            textAlign = TextAlign.Center,
-            color = Color.White,
-        )
-
         Recommendations()
 
         DatingStory()
