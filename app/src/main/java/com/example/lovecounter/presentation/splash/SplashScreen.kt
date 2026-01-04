@@ -20,7 +20,7 @@ fun SplashScreen(
     val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
 
     LaunchedEffect(startDestination) {
-        delay(1000) // Splash ekranını 1 saniye göster
+        delay(1000)
         startDestination?.let { destination ->
             onNavigate(destination)
         }

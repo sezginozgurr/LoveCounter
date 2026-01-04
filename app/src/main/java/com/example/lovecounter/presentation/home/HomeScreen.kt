@@ -24,14 +24,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -40,7 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.components.CustomDatePicker
 import com.example.lovecounter.presentation.components.Gender
@@ -50,54 +44,78 @@ import com.example.lovecounter.presentation.theme.White
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel(),
+    uiState: HomeContract.UiState,
+    onAction: (HomeContract.UiAction) -> Unit,
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppColor)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
-        Card(
-            Modifier
+        Image(
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .padding(16.dp),
-            shape = RoundedCornerShape(8.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.fakephoto),
-                contentDescription = "banner",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        }
-
-        Text(
-            text = "İlişkiniz 5. yıla ulaşmıştır. Tokiden ev alabilirsiniz",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            color = Color.White
+                .padding(16.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            painter = painterResource(id = R.drawable.fakephoto),
+            contentDescription = "banner",
+            contentScale = ContentScale.Crop,
         )
 
-        ProfilePictures(onClickMale = {}, onClickFemale = {}) //click profile
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "İlişkiniz 5. yıla ulaşmıştır. Tokiden ev alabilirsiniz",
+            textAlign = TextAlign.Center,
+            color = Color.White,
+        )
 
-        DaySpend(viewModel)
+        ProfilePictures(
+            maleImage = uiState.maleImage,
+            femaleImage = uiState.femaleImage,
+            onAction = onAction,
+        )
+
+        DaySpend(
+            duration = uiState.relationshipDuration,
+            isDateSelected = uiState.isDateSelected,
+            onDateClick = { onAction(HomeContract.UiAction.OnSelectDateClick) }
+        )
 
         Text(
-            text = "Birlikte Geçirilen zaman 5 yıl 15 ay 15 gün",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
+            text = "Birlikte Geçirilen zaman 5 yıl 15 ay 15 gün",
             textAlign = TextAlign.Center,
-            color = Color.White
+            color = Color.White,
         )
 
         Recommendations()
 
         DatingStory()
     }
+
+    CustomDatePicker(
+        showDialog = uiState.showDatePicker,
+        onDismiss = { onAction(HomeContract.UiAction.OnDismissDatePicker) },
+        onDateSelected = { onAction(HomeContract.UiAction.OnDateSelected(it.time)) }
+    )
+
+    ProfileImagePickerDialog(
+        showDialog = uiState.showMaleImagePicker,
+        onDismiss = { onAction(HomeContract.UiAction.OnDismissMaleImagePicker) },
+        onImageSelected = { onAction(HomeContract.UiAction.OnMaleImageSelected(it)) },
+        gender = Gender.MALE
+    )
+
+    ProfileImagePickerDialog(
+        showDialog = uiState.showFemaleImagePicker,
+        onDismiss = { onAction(HomeContract.UiAction.OnDismissFemaleImagePicker) },
+        onImageSelected = { onAction(HomeContract.UiAction.OnFemaleImageSelected(it)) },
+        gender = Gender.FEMALE
+    )
 }
 
 @Composable
@@ -225,17 +243,14 @@ private fun DatingStory() {
 }
 
 @Composable
-private fun DaySpend(viewModel: HomeViewModel) {
-    var showDatePicker by remember { mutableStateOf(false) }
-    val duration by viewModel.relationshipDuration.collectAsState()
-    val isDateSelected by viewModel.isDateSelected.collectAsState()
-
+private fun DaySpend(
+    duration: RelationshipDuration,
+    isDateSelected: Boolean,
+    onDateClick: () -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(
-            36.dp,
-            alignment = Alignment.CenterHorizontally
-        ),
+        horizontalArrangement = Arrangement.spacedBy(36.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -249,7 +264,7 @@ private fun DaySpend(viewModel: HomeViewModel) {
 
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.clickable { showDatePicker = true }
+            modifier = Modifier.clickable { onDateClick() }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.year_bg_firstly),
@@ -262,7 +277,6 @@ private fun DaySpend(viewModel: HomeViewModel) {
                 tint = Color.Unspecified
             )
 
-            // Tarih seçilmemişse calendar ikonunu göster
             if (!isDateSelected) {
                 Icon(
                     modifier = Modifier.size(52.dp),
@@ -272,7 +286,6 @@ private fun DaySpend(viewModel: HomeViewModel) {
                 )
             }
 
-            // Tarih seçilmişse yıl bilgisini göster
             if (isDateSelected) {
                 Text(
                     text = "${duration.years}\nyıl",
@@ -294,91 +307,68 @@ private fun DaySpend(viewModel: HomeViewModel) {
             textAlign = TextAlign.Center
         )
     }
-
-    CustomDatePicker(
-        showDialog = showDatePicker,
-        onDismiss = { showDatePicker = false },
-        onDateSelected = { selectedDate ->
-            viewModel.updateStartDate(selectedDate)
-        }
-    )
 }
 
 @Composable
-private fun ProfilePictures(onClickMale: () -> Unit, onClickFemale: () -> Unit) {
-    var showMaleImagePicker by remember { mutableStateOf(false) }
-    var showFemaleImagePicker by remember { mutableStateOf(false) }
-
-    var maleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_male) }
-    var femaleProfileImage by remember { mutableIntStateOf(R.drawable.home_default_profile_female) }
-
+private fun ProfilePictures(
+    maleImage: Int?,
+    femaleImage: Int?,
+    onAction: (HomeContract.UiAction) -> Unit,
+) {
     Row(
         Modifier
             .fillMaxWidth()
             .padding(top = 16.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column {
             Image(
-                painter = painterResource(id = maleProfileImage),
-                contentDescription = "Erkek profil",
                 modifier = Modifier
                     .width(72.dp)
                     .height(72.dp)
-                    .clickable { showMaleImagePicker = true },
-                contentScale = ContentScale.Crop
+                    .clickable { onAction(HomeContract.UiAction.OnMaleImageClick) },
+                painter = painterResource(id = maleImage ?: R.drawable.home_default_profile_male),
+                contentDescription = "Erkek profil",
+                contentScale = ContentScale.Crop,
             )
             Text(
-                text = "Erkek",
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp),
+                text = "Erkek",
                 textAlign = TextAlign.Center,
-                color = Color.White
+                color = Color.White,
             )
         }
 
         Column {
             Image(
-                painter = painterResource(id = femaleProfileImage),
-                contentDescription = "Kadın profil",
                 modifier = Modifier
                     .width(72.dp)
                     .height(72.dp)
-                    .clickable { showFemaleImagePicker = true },
-                contentScale = ContentScale.Crop
+                    .clickable { onAction(HomeContract.UiAction.OnFemaleImageClick) },
+                painter = painterResource(id = femaleImage ?: R.drawable.home_default_profile_female),
+                contentDescription = "Kadın profil",
+                contentScale = ContentScale.Crop,
             )
             Text(
-                text = "Kadın",
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp),
+                text = "Kadın",
                 textAlign = TextAlign.Center,
-                color = Color.White
+                color = Color.White,
             )
         }
     }
-
-    // Erkek profil fotoğrafı seçici
-    ProfileImagePickerDialog(
-        showDialog = showMaleImagePicker,
-        onDismiss = { showMaleImagePicker = false },
-        onImageSelected = { selectedImage ->
-            maleProfileImage = selectedImage
-        },
-        gender = Gender.MALE
-    )
-
-    // Kadın profil fotoğrafı seçici
-    ProfileImagePickerDialog(
-        showDialog = showFemaleImagePicker,
-        onDismiss = { showFemaleImagePicker = false },
-        onImageSelected = { selectedImage ->
-            femaleProfileImage = selectedImage
-        },
-        gender = Gender.FEMALE
-    )
 }
 
 @Preview
 @Composable
-fun Preview() {
-    HomeScreen()
+private fun HomeScreenPreview() {
+    HomeScreen(
+        uiState = HomeContract.UiState(
+            relationshipDuration = RelationshipDuration(2, 3, 10),
+            isDateSelected = true,
+            showDatePicker = false
+        ),
+        onAction = {},
+    )
 }

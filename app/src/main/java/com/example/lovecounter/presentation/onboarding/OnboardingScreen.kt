@@ -71,7 +71,6 @@ fun OnboardingScreen(
             }
         }
 
-        // Dot Indicators
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -92,7 +91,6 @@ fun OnboardingScreen(
             }
         }
 
-        // Get Started Button
         if (pagerState.currentPage == onboardingPages.size - 1) {
             Button(
                 onClick = onFinishClicked,
@@ -128,21 +126,18 @@ fun PageContent(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Logo
             Image(
                 modifier = Modifier.padding(top = 48.dp),
                 painter = painterResource(id = R.drawable.app_logo),
                 contentDescription = "App Logo"
             )
 
-            // Onboarding Image
             Image(
                 modifier = Modifier.padding(top = 32.dp),
                 painter = painterResource(id = onboardingData.image),
                 contentDescription = "Onboarding Image"
             )
 
-            // Description Text
             Text(
                 modifier = Modifier.padding(top = 24.dp),
                 fontSize = 16.sp,

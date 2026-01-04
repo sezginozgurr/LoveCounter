@@ -93,7 +93,7 @@ private fun DailyMemoriesPanel(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(28.dp)) // Space for the FAB
+                Spacer(modifier = Modifier.height(28.dp))
             }
         }
         FloatingActionButton(

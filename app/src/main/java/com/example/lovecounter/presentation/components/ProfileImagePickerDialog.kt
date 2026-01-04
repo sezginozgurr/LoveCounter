@@ -128,7 +128,6 @@ fun CurvedScrollView(
     }
 }
 
-// Cinsiyet için enum class ekleyelim
 enum class Gender {
     MALE, FEMALE
 }
@@ -139,7 +138,7 @@ fun ProfileImagePickerDialog(
     showDialog: Boolean,
     onDismiss: () -> Unit,
     onImageSelected: (Int) -> Unit,
-    gender: Gender, // Yeni parametre ekledik
+    gender: Gender,
 ) {
     val imageList = remember(gender) {
         when (gender) {

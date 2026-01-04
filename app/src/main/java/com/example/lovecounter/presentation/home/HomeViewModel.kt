@@ -3,42 +3,56 @@ package com.example.lovecounter.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lovecounter.data.repository.DataStoreRepository
+import com.example.lovecounter.delegation.mvi.MVI
+import com.example.lovecounter.delegation.mvi.mvi
+import com.example.lovecounter.delegation.navigator.NavigationClient
+import com.example.lovecounter.delegation.navigator.navigationClient
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-data class RelationshipDuration(
-    val days: Int = 0,
-    val months: Int = 0,
-    val years: Int = 0,
-)
-
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
-) : ViewModel() {
-
-    private val _relationshipDuration = MutableStateFlow(RelationshipDuration())
-    val relationshipDuration: StateFlow<RelationshipDuration> = _relationshipDuration.asStateFlow()
-
-    private val _isDateSelected = MutableStateFlow(false)
-    val isDateSelected: StateFlow<Boolean> = _isDateSelected.asStateFlow()
+) : ViewModel(),
+    MVI<HomeContract.UiState, HomeContract.UiAction> by mvi(HomeContract.UiState()),
+    NavigationClient by navigationClient() {
 
     init {
         viewModelScope.launch {
             dataStoreRepository.relationshipStartDate.collect { startDateMillis ->
-                _isDateSelected.value = startDateMillis != null
+                updateUiState { copy(isDateSelected = startDateMillis != null) }
                 startDateMillis?.let { calculateDuration(Date(it)) }
             }
         }
     }
 
-    fun updateStartDate(date: Date) {
+    override fun onAction(uiAction: HomeContract.UiAction) {
+        when (uiAction) {
+            HomeContract.UiAction.OnSelectDateClick -> updateUiState { copy(showDatePicker = true) }
+            HomeContract.UiAction.OnDismissDatePicker -> updateUiState { copy(showDatePicker = false) }
+            HomeContract.UiAction.OnDismissFemaleImagePicker -> updateUiState { copy(showFemaleImagePicker = false) }
+            HomeContract.UiAction.OnDismissMaleImagePicker -> updateUiState { copy(showMaleImagePicker = false) }
+            HomeContract.UiAction.OnFemaleImageClick -> updateUiState { copy(showFemaleImagePicker = true) }
+            HomeContract.UiAction.OnMaleImageClick -> updateUiState { copy(showMaleImagePicker = true) }
+            is HomeContract.UiAction.OnFemaleImageSelected -> {
+                updateUiState { copy(femaleImage = uiAction.image, showFemaleImagePicker = false) }
+            }
+
+            is HomeContract.UiAction.OnMaleImageSelected -> {
+                updateUiState { copy(maleImage = uiAction.image, showMaleImagePicker = false) }
+            }
+
+            is HomeContract.UiAction.OnDateSelected -> {
+                updateUiState { copy(showDatePicker = false) }
+                updateStartDate(Date(uiAction.date))
+            }
+        }
+    }
+
+    private fun updateStartDate(date: Date) {
         viewModelScope.launch {
             dataStoreRepository.saveRelationshipStartDate(date)
             calculateDuration(date)
@@ -52,11 +66,8 @@ class HomeViewModel @Inject constructor(
         val days = TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
         val months = days / 30
         val years = days / 365
+        val duration = RelationshipDuration(days % 30, months % 12, years)
 
-        _relationshipDuration.value = RelationshipDuration(
-            days = days % 30,
-            months = months % 12,
-            years = years
-        )
+        updateUiState { copy(relationshipDuration = duration) }
     }
 } 

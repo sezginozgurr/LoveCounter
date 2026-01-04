@@ -74,7 +74,6 @@ fun CustomDatePicker(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // NumberPicker'ların metin rengini siyah yapan fonksiyon
                 fun NumberPicker.setTextColor() {
                     val pickerFields = NumberPicker::class.java.declaredFields
                     for (field in pickerFields) {
@@ -96,7 +95,6 @@ fun CustomDatePicker(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Gün Seçici
                     AndroidView(
                         factory = { context ->
                             NumberPicker(context).apply {
@@ -112,7 +110,6 @@ fun CustomDatePicker(
                         modifier = Modifier.weight(1f)
                     )
 
-                    // Ay Seçici
                     AndroidView(
                         factory = { context ->
                             NumberPicker(context).apply {
@@ -129,7 +126,6 @@ fun CustomDatePicker(
                         modifier = Modifier.weight(1f)
                     )
 
-                    // Yıl Seçici
                     AndroidView(
                         factory = { context ->
                             NumberPicker(context).apply {
