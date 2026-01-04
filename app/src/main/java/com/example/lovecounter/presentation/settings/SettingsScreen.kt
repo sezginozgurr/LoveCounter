@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -39,7 +38,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.lovecounter.R
-import com.example.lovecounter.presentation.theme.MyappTheme
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun SettingsScreen(
@@ -141,14 +140,14 @@ private fun Header() {
                     modifier = Modifier.semantics { heading() }
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_heart),
+                    imageVector = LCTheme.icons.heart,
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
             Icon(
-                painter = painterResource(id = R.drawable.ic_top_memories),
+                imageVector = LCTheme.icons.topMemories,
                 contentDescription = null,
                 tint = Color.Unspecified,
             )
@@ -212,7 +211,7 @@ private class CutHeaderShape(private val density: Density) : Shape {
 @Preview(showBackground = true, name = "Light Mode")
 @Composable
 fun SettingsScreenPreview() {
-    MyappTheme {
+    LCTheme {
         SettingsScreen(
             uiState = SettingsContract.UiState(),
             onAction = {}
@@ -223,7 +222,7 @@ fun SettingsScreenPreview() {
 @Preview(showBackground = true, name = "Dark Mode")
 @Composable
 fun SettingsScreenDarkPreview() {
-    MyappTheme(darkTheme = true) {
+    LCTheme {
         SettingsScreen(
             uiState = SettingsContract.UiState(),
             onAction = {}

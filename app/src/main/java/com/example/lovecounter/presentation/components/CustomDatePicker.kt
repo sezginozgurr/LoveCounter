@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.lovecounter.presentation.theme.AppColor
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -156,7 +155,7 @@ fun CustomDatePicker(
                         onDateSelected(calendar.time)
                         onDismiss()
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = AppColor)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text("Tamam")
                 }

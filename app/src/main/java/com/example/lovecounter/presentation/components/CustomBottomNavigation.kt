@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,11 +27,10 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.lovecounter.R
 import com.example.lovecounter.delegation.navigator.LocalNavHostController
 import com.example.lovecounter.presentation.navigation.BottomNavItem
 import com.example.lovecounter.presentation.navigation.Screen
-import com.example.lovecounter.presentation.theme.AppColor
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun CustomBottomNavigation() {
@@ -64,7 +64,7 @@ fun CustomBottomNavigation() {
         ) {
             Icon(
                 modifier = Modifier.size(48.dp),
-                painter = painterResource(R.drawable.ic_gift),
+                imageVector = LCTheme.icons.gift,
                 contentDescription = "Ekle",
                 tint = Color.Unspecified,
             )
@@ -110,7 +110,7 @@ fun CustomBottomNavigation() {
                                 modifier = Modifier.size(36.dp),
                                 painter = painterResource(id = item.iconResId),
                                 contentDescription = item.title,
-                                tint = if (isSelected) AppColor else Color.Gray,
+                                tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray,
                             )
                         }
                     }

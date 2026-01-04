@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,8 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.components.Gender
 import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
-import com.example.lovecounter.presentation.theme.AppColor
-import com.example.lovecounter.presentation.theme.White
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun HomeScreen(
@@ -49,7 +49,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColor)
+            .background(MaterialTheme.colorScheme.primary)
             .verticalScroll(rememberScrollState()),
     ) {
         Image(
@@ -117,7 +117,7 @@ private fun Recommendations() {
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp)
-            .background(White)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         val list = listOf("1", "2", "3", "4", "5")
         Row(
@@ -127,17 +127,17 @@ private fun Recommendations() {
             Text(
                 text = "Tavsiyeler",
                 fontWeight = FontWeight.Bold,
-                color = AppColor,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 10.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 modifier = Modifier
-                    .background(AppColor, CircleShape)
+                    .background(MaterialTheme.colorScheme.primary, CircleShape)
                     .padding(horizontal = 12.dp, vertical = 4.dp),
                 text = "Daha Fazla",
                 fontWeight = FontWeight.Bold,
-                color = White,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 10.sp
             )
         }
@@ -178,7 +178,7 @@ private fun DatingStory() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colorScheme.background)
             .padding(bottom = 16.dp)
     ) {
         val list = listOf("1", "2", "3", "4")
@@ -189,16 +189,16 @@ private fun DatingStory() {
             Text(
                 text = "Tanışma Hikayeleri",
                 fontWeight = FontWeight.Bold,
-                color = AppColor,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 10.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "Daha Fazla",
                 fontWeight = FontWeight.Bold,
-                color = White,
+                color = MaterialTheme.colorScheme.background,
                 modifier = Modifier
-                    .background(AppColor, CircleShape)
+                    .background(MaterialTheme.colorScheme.primary, CircleShape)
                     .padding(horizontal = 12.dp, vertical = 4.dp),
                 fontSize = 10.sp
             )
@@ -260,12 +260,12 @@ private fun DaySpend(
             modifier = Modifier.clickable { onDateClick() }
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.year_bg_firstly),
+                imageVector = LCTheme.icons.yearBgFirstly,
                 contentDescription = "a",
                 tint = Color.Unspecified
             )
             Icon(
-                painter = painterResource(id = R.drawable.year_bg_secondly),
+                imageVector = LCTheme.icons.yearBgSecondly,
                 contentDescription = "b",
                 tint = Color.Unspecified
             )
@@ -273,7 +273,7 @@ private fun DaySpend(
             if (!isDateSelected) {
                 Icon(
                     modifier = Modifier.size(52.dp),
-                    painter = painterResource(id = R.drawable.ic_choose_date),
+                    imageVector = LCTheme.icons.chooseDate,
                     contentDescription = "calendar",
                     tint = Color.Unspecified
                 )
@@ -282,7 +282,7 @@ private fun DaySpend(
             if (isDateSelected) {
                 Text(
                     text = "${duration.years}\nyıl",
-                    color = AppColor,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 40.sp,
                     lineHeight = 36.sp,
                     fontWeight = FontWeight.Bold,

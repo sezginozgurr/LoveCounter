@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,11 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lovecounter.R
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
-import com.example.lovecounter.presentation.theme.SoulMatesOrangeEndColor
-import com.example.lovecounter.presentation.theme.SoulMatesOrangeStartColor
-import com.example.lovecounter.presentation.theme.White
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun OnboardingScreen(
@@ -54,7 +52,7 @@ fun OnboardingScreen(
             .fillMaxSize()
             .background(
                 brush = Brush.linearGradient(
-                    colors = listOf(SoulMatesOrangeStartColor, SoulMatesOrangeEndColor)
+                    colors = listOf(MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.tertiary)
                 )
             )
     ) {
@@ -86,8 +84,8 @@ fun OnboardingScreen(
                         .size(8.dp)
                         .clip(CircleShape)
                         .background(
-                            if (pagerState.currentPage == iteration) White
-                            else White.copy(alpha = 0.5f)
+                            if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.background
+                            else MaterialTheme.colorScheme.background.copy(alpha = 0.5f)
                         )
                 )
             }
@@ -100,7 +98,7 @@ fun OnboardingScreen(
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = White),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                 shape = RoundedCornerShape(12.dp),
                 enabled = !uiState.isLoading
             ) {
@@ -109,7 +107,7 @@ fun OnboardingScreen(
                 } else {
                     Text(
                         text = "Get Started",
-                        color = SoulMatesOrangeEndColor,
+                        color = MaterialTheme.colorScheme.tertiary,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -135,7 +133,7 @@ fun PageContent(
         ) {
             Image(
                 modifier = Modifier.padding(top = 48.dp),
-                painter = painterResource(id = R.drawable.app_logo),
+                imageVector = LCTheme.icons.appLogo,
                 contentDescription = "App Logo"
             )
 
@@ -148,7 +146,7 @@ fun PageContent(
             Text(
                 modifier = Modifier.padding(top = 24.dp),
                 fontSize = 16.sp,
-                color = White,
+                color = MaterialTheme.colorScheme.background,
                 text = stringResource(id = onboardingData.description),
                 textAlign = TextAlign.Center
             )

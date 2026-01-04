@@ -43,7 +43,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.example.lovecounter.R
-import com.example.lovecounter.presentation.theme.AppColor
 import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.abs
@@ -151,7 +150,7 @@ fun ProfileImagePickerDialog(
             )
 
             Gender.FEMALE -> listOf(
-                R.drawable.ic_profile_repred,
+                R.drawable.ic_profile_red,
                 R.drawable.ic_profile_orange,
                 R.drawable.ic_profile_black,
                 R.drawable.ic_profile_yellow,
@@ -239,9 +238,7 @@ fun ProfileImagePickerDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AppColor
-                    ),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(

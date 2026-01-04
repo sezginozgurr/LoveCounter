@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import com.example.lovecounter.delegation.navigator.RememberNavController
 import com.example.lovecounter.presentation.navigation.NavigationGraph
-import com.example.lovecounter.presentation.theme.MyappTheme
+import com.example.lovecounter.presentation.theme.LCTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            MyappTheme {
+            LCTheme {
                 val navController = rememberNavController()
                 RememberNavController(
                     navController = navController,

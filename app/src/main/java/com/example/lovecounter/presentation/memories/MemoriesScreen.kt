@@ -27,11 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.lovecounter.R
 import com.example.lovecounter.data.model.Memory
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun MemoriesScreen(
@@ -89,7 +88,7 @@ private fun MemoriesBackground() {
             )
     ) {
         Image(
-            painter = painterResource(id = R.drawable.white_top_bg),
+            imageVector = LCTheme.icons.whiteBg,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()

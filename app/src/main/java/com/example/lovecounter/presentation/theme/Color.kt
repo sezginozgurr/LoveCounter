@@ -1,28 +1,23 @@
 package com.example.lovecounter.presentation.theme
 
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+internal val LightColors = lightColorScheme(
+    primary = Color(0xFFE1534E),
+    secondary = Color(0xFFF59671),
+    tertiary = Color(0xFFDC4044),
+    onPrimary = Color(0xFF202020),
+    onSecondary = Color(0xFF161116),
+    background = Color(0xFFFEFEFE),
+)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-val DarkBlue = Color(0xFF0f77a7)
-val TransparentWhite = Color(0x75FFFFFF)
-val White = Color(0xFFFFFFFF)
-val SoulMatesOrangeStartColor = Color(0xFFF59671)
-val SoulMatesOrangeEndColor = Color(0xFFDC4044)
-
-val indicatorGray = Color(0xFF696867)
-val indicatorSelectColor = Color(0xFF3F51B5)
-
-val AppColor = Color(0xFFE1534E)
-
-val SelectedItemColor = Color(0xFFFFC107)
-
-val BackgroundColor = Color(0xFFF5F5F5)
-val ContentColor = Color.Black
-val SurfaceColor = Color.White
+internal val DarkColors = darkColorScheme(
+    primary = Color(0xFFE1534E),
+    secondary = Color(0xFFF59671),
+    tertiary = Color(0xFFDC4044),
+    onPrimary = Color(0xFF202020),
+    onSecondary = Color(0xFF161116),
+    background = Color(0xFFFEFEFE),
+)
