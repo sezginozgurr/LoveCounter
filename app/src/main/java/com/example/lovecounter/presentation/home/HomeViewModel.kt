@@ -63,10 +63,12 @@ class HomeViewModel @Inject constructor(
         val currentDate = Date()
         val diffInMillis = currentDate.time - startDate.time
 
-        val days = TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
-        val months = days / 30
-        val years = days / 365
-        val duration = RelationshipDuration(days % 30, months % 12, years)
+        val totalDays = TimeUnit.MILLISECONDS.toDays(diffInMillis).toInt()
+        val years = totalDays / 365
+        val remainingDaysAfterYears = totalDays % 365
+        val months = remainingDaysAfterYears / 30
+        val days = remainingDaysAfterYears % 30
+        val duration = RelationshipDuration(days, months, years)
 
         updateUiState { copy(relationshipDuration = duration) }
     }
