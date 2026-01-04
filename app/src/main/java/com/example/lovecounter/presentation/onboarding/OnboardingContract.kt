@@ -2,11 +2,12 @@ package com.example.lovecounter.presentation.onboarding
 
 object OnboardingContract {
     data class UiState(
+        val currentPage: Int = 0,
         val isLoading: Boolean = false,
-        val list: List<String> = emptyList(),
     )
 
-    sealed class UiAction
-
-    sealed class UiEffect
+    sealed interface UiAction {
+        data object OnFinishClick : UiAction
+        data class OnPageChange(val page: Int) : UiAction
+    }
 }

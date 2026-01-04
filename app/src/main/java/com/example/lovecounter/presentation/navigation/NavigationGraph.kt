@@ -26,6 +26,7 @@ import com.example.lovecounter.presentation.memories.MemoriesScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
 import com.example.lovecounter.presentation.settings.SettingsScreen
+import com.example.lovecounter.presentation.specialday.SpecialDayViewModel
 import com.example.lovecounter.presentation.specialday.SpecialDaysScreen
 import com.example.lovecounter.presentation.splash.SplashScreen
 import com.example.lovecounter.presentation.splash.SplashViewModel
@@ -67,22 +68,21 @@ fun NavigationGraph() {
         ) {
             composable<Screen.Splash> {
                 val viewModel = hiltViewModel<SplashViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                NavigationClientCollector(viewModel.navigationClientEffect)
                 SplashScreen(
-                    viewModel = viewModel,
-                    onNavigate = { destination ->
-                        navController.navigate(destination) {
-                            popUpTo<Screen.Splash> { inclusive = true }
-                        }
-                    }
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
                 )
             }
 
             composable<Screen.Onboarding> {
                 val viewModel = hiltViewModel<OnboardingViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                NavigationClientCollector(viewModel.navigationClientEffect)
                 OnboardingScreen(
-                    onFinishClicked = {
-                        viewModel.completeOnboarding()
-                    }
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
                 )
             }
 
@@ -98,7 +98,13 @@ fun NavigationGraph() {
             }
 
             composable<Screen.Memories> {
-                MemoriesScreen()
+                val viewModel = hiltViewModel<com.example.lovecounter.presentation.memories.MemoriesViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                NavigationClientCollector(viewModel.navigationClientEffect)
+                MemoriesScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
             }
 
             composable<Screen.Profile> {
@@ -106,15 +112,32 @@ fun NavigationGraph() {
             }
 
             composable<Screen.Settings> {
-                SettingsScreen()
+                val viewModel = hiltViewModel<com.example.lovecounter.presentation.settings.SettingsViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                NavigationClientCollector(viewModel.navigationClientEffect)
+                SettingsScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
             }
 
             composable<Screen.AddMemory> {
-                AddMemoryScreen()
+                val viewModel = hiltViewModel<com.example.lovecounter.presentation.addmemory.AddMemoryViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                NavigationClientCollector(viewModel.navigationClientEffect)
+                AddMemoryScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
             }
 
             composable<Screen.SpecialDays> {
-                SpecialDaysScreen()
+                val viewModel = hiltViewModel<SpecialDayViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                SpecialDaysScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
             }
         }
     }

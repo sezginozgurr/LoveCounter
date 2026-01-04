@@ -3,46 +3,37 @@ package com.example.lovecounter.presentation.onboarding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lovecounter.data.repository.DataStoreRepository
-import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiAction
-import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiEffect
-import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
+import com.example.lovecounter.delegation.mvi.MVI
+import com.example.lovecounter.delegation.mvi.mvi
+import com.example.lovecounter.delegation.navigator.NavigationClient
+import com.example.lovecounter.delegation.navigator.navigationClient
+import com.example.lovecounter.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
-) : ViewModel() {
+) : ViewModel(),
+    MVI<OnboardingContract.UiState, OnboardingContract.UiAction> by mvi(OnboardingContract.UiState()),
+    NavigationClient by navigationClient() {
 
-    private val _uiState = MutableStateFlow(UiState())
-    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
-
-    private val _uiEffect by lazy { Channel<UiEffect>() }
-    val uiEffect: Flow<UiEffect> by lazy { _uiEffect.receiveAsFlow() }
-
-    fun onAction(uiAction: UiAction) {
+    override fun onAction(uiAction: OnboardingContract.UiAction) {
+        when (uiAction) {
+            OnboardingContract.UiAction.OnFinishClick -> handleFinishOnboarding()
+            is OnboardingContract.UiAction.OnPageChange -> {
+                updateUiState { copy(currentPage = uiAction.page) }
+            }
+        }
     }
 
-    private fun updateUiState(block: UiState.() -> UiState) {
-
-        _uiState.update(block)
-    }
-
-    private suspend fun emitUiEffect(uiEffect: UiEffect) {
-        _uiEffect.send(uiEffect)
-    }
-
-    fun completeOnboarding() {
+    private fun handleFinishOnboarding() {
+        updateUiState { copy(isLoading = true) }
         viewModelScope.launch {
             dataStoreRepository.completeOnboarding()
+            updateUiState { copy(isLoading = false) }
+            navigateTo(Screen.Home)
         }
     }
 }

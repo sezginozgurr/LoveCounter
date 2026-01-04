@@ -35,20 +35,23 @@ import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
 
 @Composable
-fun SpecialDaysScreen() {
+fun SpecialDaysScreen(
+    uiState: SpecialDayContract.UiState,
+    onAction: (SpecialDayContract.UiAction) -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFFDEFEF))
     ) {
-        TopSection()
+        TopSection(onAction = onAction)
         Spacer(modifier = Modifier.height(16.dp))
-        BottomSection()
+        BottomSection(events = uiState.events, onAction = onAction)
     }
 }
 
 @Composable
-fun TopSection() {
+fun TopSection(onAction: (SpecialDayContract.UiAction) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -74,19 +77,27 @@ fun TopSection() {
             SpecialDayItem(
                 iconRes = R.drawable.special_day_1,
                 text = "Evlilik Yıldönümü"
-            ) { /* TODO */ }
+            ) {
+                onAction(SpecialDayContract.UiAction.OnSpecialDayClick(SpecialDayContract.SpecialDayType.ANNIVERSARY))
+            }
             SpecialDayItem(
                 iconRes = R.drawable.special_day_2,
                 text = "Tanışma Yıldönümü"
-            ) { /* TODO */ }
+            ) {
+                onAction(SpecialDayContract.UiAction.OnSpecialDayClick(SpecialDayContract.SpecialDayType.MEETING_ANNIVERSARY))
+            }
             SpecialDayItem(
                 iconRes = R.drawable.special_day_3,
-                text = "Tanışma Yıldönümü"
-            ) { /* TODO */ }
+                text = "Doğum Günü"
+            ) {
+                onAction(SpecialDayContract.UiAction.OnSpecialDayClick(SpecialDayContract.SpecialDayType.BIRTHDAY))
+            }
             SpecialDayItem(
                 iconRes = R.drawable.special_day_4,
-                text = "Tanışma Yıldönümü"
-            ) { /* TODO */ }
+                text = "Diğer"
+            ) {
+                onAction(SpecialDayContract.UiAction.OnSpecialDayClick(SpecialDayContract.SpecialDayType.OTHER))
+            }
         }
     }
 }
@@ -112,11 +123,15 @@ fun SpecialDayItem(iconRes: Int, text: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun EventListItem(event: Event) {
+fun EventListItem(
+    event: Event,
+    onAction: (SpecialDayContract.UiAction) -> Unit,
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 6.dp, horizontal = 12.dp),
+            .padding(vertical = 6.dp, horizontal = 12.dp)
+            .clickable { onAction(SpecialDayContract.UiAction.OnEventClick(event)) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0x4BFFFFFF))
     ) {
@@ -179,7 +194,10 @@ fun EventListItem(event: Event) {
 
 
 @Composable
-fun BottomSection(events: List<Event> = emptyList()) {
+fun BottomSection(
+    events: List<Event>,
+    onAction: (SpecialDayContract.UiAction) -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -202,7 +220,7 @@ fun BottomSection(events: List<Event> = emptyList()) {
             } else {
                 LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
                     items(events) { event ->
-                        EventListItem(event = event)
+                        EventListItem(event = event, onAction = onAction)
                     }
                 }
             }
@@ -213,16 +231,10 @@ fun BottomSection(events: List<Event> = emptyList()) {
 @Preview(showBackground = true, name = "Empty State")
 @Composable
 fun ProfileScreenPreview() {
-    val mockEvents = emptyList<Event>()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFDEFEF))
-    ) {
-        TopSection()
-        Spacer(modifier = Modifier.height(16.dp))
-        BottomSection(events = mockEvents)
-    }
+    SpecialDaysScreen(
+        uiState = SpecialDayContract.UiState(),
+        onAction = {}
+    )
 }
 
 @Preview(showBackground = true, name = "With Data")
@@ -262,13 +274,8 @@ fun ProfileScreenWithDataPreview() {
             R.drawable.special_day_4
         )
     )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFDEFEF))
-    ) {
-        TopSection()
-        Spacer(modifier = Modifier.height(16.dp))
-        BottomSection(events = mockEvents)
-    }
+    SpecialDaysScreen(
+        uiState = SpecialDayContract.UiState(events = mockEvents),
+        onAction = {}
+    )
 }

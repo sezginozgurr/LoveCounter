@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,7 +40,8 @@ import com.example.lovecounter.presentation.theme.White
 
 @Composable
 fun OnboardingScreen(
-    onFinishClicked: () -> Unit,
+    uiState: OnboardingContract.UiState,
+    onAction: (OnboardingContract.UiAction) -> Unit,
 ) {
     val onboardingPages = getOnboardingData()
     val pagerState = rememberPagerState(
@@ -93,20 +95,25 @@ fun OnboardingScreen(
 
         if (pagerState.currentPage == onboardingPages.size - 1) {
             Button(
-                onClick = onFinishClicked,
+                onClick = { onAction(OnboardingContract.UiAction.OnFinishClick) },
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = White),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                enabled = !uiState.isLoading
             ) {
-                Text(
-                    text = "Get Started",
-                    color = SoulMatesOrangeEndColor,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                if (uiState.isLoading) {
+                    CircularProgressIndicator()
+                } else {
+                    Text(
+                        text = "Get Started",
+                        color = SoulMatesOrangeEndColor,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }
@@ -155,6 +162,7 @@ fun HomeScreenPreview(
     @PreviewParameter(OnboardingScreenPreviewProvider::class) uiState: UiState,
 ) {
     OnboardingScreen(
-        {}
+        uiState = uiState,
+        onAction = {}
     )
 }

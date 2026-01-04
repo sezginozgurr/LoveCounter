@@ -43,8 +43,8 @@ import com.example.lovecounter.presentation.theme.MyappTheme
 
 @Composable
 fun SettingsScreen(
-    onAddMemory: () -> Unit = {},
-    onItemClick: (Int) -> Unit = {},
+    uiState: SettingsContract.UiState,
+    onAction: (SettingsContract.UiAction) -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -56,7 +56,10 @@ fun SettingsScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DailyMemoriesPanel(onAddMemory = onAddMemory, onItemClick = onItemClick)
+            DailyMemoriesPanel(
+                onAddMemory = { onAction(SettingsContract.UiAction.OnAddMemoryClick) },
+                onItemClick = { onAction(SettingsContract.UiAction.OnMemoryItemClick(it)) }
+            )
         }
     }
 }
@@ -210,7 +213,10 @@ private class CutHeaderShape(private val density: Density) : Shape {
 @Composable
 fun SettingsScreenPreview() {
     MyappTheme {
-        SettingsScreen()
+        SettingsScreen(
+            uiState = SettingsContract.UiState(),
+            onAction = {}
+        )
     }
 }
 
@@ -218,6 +224,9 @@ fun SettingsScreenPreview() {
 @Composable
 fun SettingsScreenDarkPreview() {
     MyappTheme(darkTheme = true) {
-        SettingsScreen()
+        SettingsScreen(
+            uiState = SettingsContract.UiState(),
+            onAction = {}
+        )
     }
 }

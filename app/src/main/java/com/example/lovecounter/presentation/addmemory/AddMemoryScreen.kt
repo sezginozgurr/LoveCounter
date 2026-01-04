@@ -1,6 +1,5 @@
 package com.example.lovecounter.presentation.addmemory
 
-import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,33 +12,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.lovecounter.data.model.Memory
 
 @Composable
 fun AddMemoryScreen(
-    viewModel: AddMemoryViewModel = hiltViewModel(),
+    uiState: AddMemoryContract.UiState,
+    onAction: (AddMemoryContract.UiAction) -> Unit,
 ) {
-    var title by remember { mutableStateOf("") }
-    var subtitle by remember { mutableStateOf("") }
-    var selectedImageUris by remember {
-        mutableStateOf<List<Uri>>(emptyList())
-    }
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 5),
-        onResult = { uris -> selectedImageUris = uris }
+        onResult = { uris -> onAction(AddMemoryContract.UiAction.OnImagesSelected(uris)) }
     )
 
     Column(
@@ -49,22 +39,27 @@ fun AddMemoryScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
-            value = title,
-            onValueChange = { title = it },
+            value = uiState.title,
+            onValueChange = { onAction(AddMemoryContract.UiAction.OnTitleChange(it)) },
             label = { Text("Title") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = !uiState.isSaving
         )
         OutlinedTextField(
-            value = subtitle,
-            onValueChange = { subtitle = it },
+            value = uiState.subtitle,
+            onValueChange = { onAction(AddMemoryContract.UiAction.OnSubtitleChange(it)) },
             label = { Text("Subtitle") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            enabled = !uiState.isSaving
         )
-        Button(onClick = {
-            multiplePhotoPickerLauncher.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
-            )
-        }) {
+        Button(
+            onClick = {
+                multiplePhotoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)
+                )
+            },
+            enabled = !uiState.isSaving
+        ) {
             Text(text = "Pick photos")
         }
 
@@ -72,7 +67,7 @@ fun AddMemoryScreen(
             modifier = Modifier.padding(top = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(selectedImageUris) { uri ->
+            items(uiState.selectedImageUris) { uri ->
                 AsyncImage(
                     model = uri,
                     contentDescription = null,
@@ -83,17 +78,15 @@ fun AddMemoryScreen(
         }
 
         Button(
-            onClick = {
-                val memory = Memory(
-                    title = title,
-                    subtitle = subtitle,
-                    photoUris = selectedImageUris.map { it.toString() }
-                )
-                viewModel.addMemory(memory)
-            },
-            modifier = Modifier.padding(top = 16.dp)
+            onClick = { onAction(AddMemoryContract.UiAction.OnSaveClick) },
+            modifier = Modifier.padding(top = 16.dp),
+            enabled = !uiState.isSaving && uiState.title.isNotBlank()
         ) {
-            Text(text = "Save Memory")
+            if (uiState.isSaving) {
+                CircularProgressIndicator()
+            } else {
+                Text(text = "Save Memory")
+            }
         }
     }
 }
