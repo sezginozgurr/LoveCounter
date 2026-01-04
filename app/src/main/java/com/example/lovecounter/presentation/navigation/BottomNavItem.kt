@@ -19,6 +19,12 @@ sealed class BottomNavItem(
         title = "Anlar"
     )
 
+    data object AddMemory : BottomNavItem(
+        route = Screen.AddMemory,
+        iconResId = R.drawable.ic_launcher_foreground,
+        title = ""
+    )
+
     data object Gallery : BottomNavItem(
         route = Screen.Profile,
         iconResId = R.drawable.tab_3,
@@ -32,6 +38,6 @@ sealed class BottomNavItem(
     )
 
     companion object {
-        val items = listOf(Love, SpecialDays, Gallery, Settings)
+        val items = listOf(Love, SpecialDays, AddMemory, Gallery, Settings)
     }
 } 
