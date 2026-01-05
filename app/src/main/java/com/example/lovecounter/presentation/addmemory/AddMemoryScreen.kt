@@ -19,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
 fun AddMemoryScreen(
@@ -88,5 +90,21 @@ fun AddMemoryScreen(
                 Text(text = "Save Memory")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AddMemoryScreenPreview() {
+    LCTheme {
+        AddMemoryScreen(
+            uiState = AddMemoryContract.UiState(
+                title = "A Special Day",
+                subtitle = "Our first date",
+                selectedImageUris = listOf(),
+                isSaving = false
+            ),
+            onAction = {}
+        )
     }
 }

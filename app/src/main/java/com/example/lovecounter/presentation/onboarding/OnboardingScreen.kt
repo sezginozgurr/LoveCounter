@@ -157,11 +157,13 @@ fun PageContent(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview(
+private fun OnboardingScreenPreview(
     @PreviewParameter(OnboardingScreenPreviewProvider::class) uiState: UiState,
 ) {
-    OnboardingScreen(
-        uiState = uiState,
-        onAction = {}
-    )
+    LCTheme {
+        OnboardingScreen(
+            uiState = uiState,
+            onAction = {}
+        )
+    }
 }

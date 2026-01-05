@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lovecounter.data.model.Memory
 import com.example.lovecounter.presentation.components.LCIcon
@@ -125,5 +126,23 @@ private fun MemoryItem(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MemoriesScreenPreview() {
+    LCTheme {
+        MemoriesScreen(
+            uiState = MemoriesContract.UiState(
+                memories = listOf(
+                    Memory(1, "A Special Day", "Our first date", listOf()),
+                    Memory(2, "Vacation", "Trip to the beach", listOf()),
+                    Memory(3, "Anniversary", "Celebrating together", listOf())
+                ),
+                isLoading = false
+            ),
+            onAction = {}
+        )
     }
 }

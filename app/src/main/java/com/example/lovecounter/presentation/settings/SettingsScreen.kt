@@ -205,21 +205,9 @@ private class CutHeaderShape(private val density: Density) : Shape {
     }
 }
 
-
-@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true)
 @Composable
-fun SettingsScreenPreview() {
-    LCTheme {
-        SettingsScreen(
-            uiState = SettingsContract.UiState(),
-            onAction = {}
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Dark Mode")
-@Composable
-fun SettingsScreenDarkPreview() {
+private fun SettingsScreenPreview() {
     LCTheme {
         SettingsScreen(
             uiState = SettingsContract.UiState(),

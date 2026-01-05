@@ -232,7 +232,7 @@ fun BottomSection(
 
 @Preview(showBackground = true, name = "Empty State")
 @Composable
-fun ProfileScreenPreview() {
+fun SpecialDaysScreenPreview() {
     SpecialDaysScreen(
         uiState = SpecialDayContract.UiState(),
         onAction = {}
@@ -241,7 +241,7 @@ fun ProfileScreenPreview() {
 
 @Preview(showBackground = true, name = "With Data")
 @Composable
-fun ProfileScreenWithDataPreview() {
+private fun SpecialDaysScreenWithDataPreview() {
     val mockEvents = listOf(
         Event(
             1,

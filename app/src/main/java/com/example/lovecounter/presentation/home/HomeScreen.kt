@@ -341,11 +341,13 @@ private fun ProfilePictures(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(
-        uiState = HomeContract.UiState(
-            relationshipDuration = RelationshipDuration(2, 3, 10),
-            isDateSelected = true,
-        ),
-        onAction = {},
-    )
+    LCTheme {
+        HomeScreen(
+            uiState = HomeContract.UiState(
+                relationshipDuration = RelationshipDuration(2, 3, 10),
+                isDateSelected = true,
+            ),
+            onAction = {},
+        )
+    }
 }
