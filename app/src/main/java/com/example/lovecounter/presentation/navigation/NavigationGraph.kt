@@ -20,7 +20,7 @@ import com.example.lovecounter.delegation.navigator.LocalNavHostController
 import com.example.lovecounter.delegation.navigator.NavigationClientCollector
 import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
 import com.example.lovecounter.presentation.addmemory.AddMemoryViewModel
-import com.example.lovecounter.presentation.components.CustomBottomNavigation
+import com.example.lovecounter.presentation.components.LCBottomNavigation
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.home.HomeViewModel
 import com.example.lovecounter.presentation.memories.MemoriesScreen
@@ -56,7 +56,7 @@ fun NavigationGraph() {
     Scaffold(
         containerColor = Color(0xFFF5F5F5),
         contentColor = Color.Black,
-        bottomBar = { if (showBottomBar) CustomBottomNavigation() }
+        bottomBar = { if (showBottomBar) LCBottomNavigation() }
     ) { innerPadding ->
         NavHost(
             modifier = Modifier

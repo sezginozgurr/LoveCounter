@@ -34,7 +34,7 @@ import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomDatePicker(
+fun LCDatePicker(
     onDismiss: () -> Unit,
     onDateSelected: (Date) -> Unit,
 ) {

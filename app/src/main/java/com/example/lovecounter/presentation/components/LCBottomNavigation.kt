@@ -31,7 +31,7 @@ import com.example.lovecounter.presentation.navigation.Screen
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
-fun CustomBottomNavigation() {
+fun LCBottomNavigation() {
     val navController = LocalNavHostController.current
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

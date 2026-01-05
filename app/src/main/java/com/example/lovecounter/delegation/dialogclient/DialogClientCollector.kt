@@ -9,7 +9,7 @@ import com.example.lovecounter.common.collectWithLifecycle
 import com.example.lovecounter.delegation.dialogclient.DialogClientEffect.HideDialog
 import com.example.lovecounter.delegation.dialogclient.DialogClientEffect.ShowDatePickerDialog
 import com.example.lovecounter.delegation.dialogclient.DialogClientEffect.ShowDialog
-import com.example.lovecounter.presentation.components.CustomDatePicker
+import com.example.lovecounter.presentation.components.LCDatePicker
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -24,7 +24,7 @@ fun DialogClientCollector(effect: Flow<DialogClientEffect>) {
         when (it) {
             is ShowDialog -> {}
             is ShowDatePickerDialog -> {
-                CustomDatePicker(
+                LCDatePicker(
                     onDismiss = {
                         state = null
                     },
