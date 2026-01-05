@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -21,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -62,9 +60,9 @@ fun CustomBottomNavigation() {
             containerColor = Color.White,
             contentColor = Color.White,
         ) {
-            Icon(
+            LCIcon(
                 modifier = Modifier.size(48.dp),
-                imageVector = LCTheme.icons.gift,
+                vector = LCTheme.icons.gift,
                 contentDescription = "Ekle",
                 tint = Color.Unspecified,
             )
@@ -106,9 +104,9 @@ fun CustomBottomNavigation() {
                                 }
                             },
                         ) {
-                            Icon(
+                            LCIcon(
                                 modifier = Modifier.size(36.dp),
-                                painter = painterResource(id = item.iconResId),
+                                resource = item.iconResId,
                                 contentDescription = item.title,
                                 tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray,
                             )

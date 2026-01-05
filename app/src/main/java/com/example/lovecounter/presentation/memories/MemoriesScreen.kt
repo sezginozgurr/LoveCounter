@@ -18,7 +18,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.lovecounter.data.model.Memory
+import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
@@ -65,9 +65,8 @@ fun MemoriesScreen(
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Add Memory"
+            LCIcon(
+                vector = Icons.Default.Add,
             )
         }
     }

@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -111,8 +110,8 @@ private fun HeaderContent(
             modifier = Modifier.size(24.dp),
             onClick = onPreviousMonth,
         ) {
-            Icon(
-                imageVector = Icons.Default.ChevronLeft,
+            LCIcon(
+                vector = Icons.Default.ChevronLeft,
                 contentDescription = "Previous month",
                 tint = MaterialTheme.colorScheme.primary,
             )
@@ -131,8 +130,8 @@ private fun HeaderContent(
             modifier = Modifier.size(24.dp),
             onClick = onNextMonth,
         ) {
-            Icon(
-                imageVector = Icons.Default.ChevronRight,
+            LCIcon(
+                vector = Icons.Default.ChevronRight,
                 contentDescription = "Next month",
                 tint = MaterialTheme.colorScheme.primary,
             )

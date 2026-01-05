@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
+import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
@@ -211,8 +212,8 @@ fun BottomSection(
             contentAlignment = Alignment.TopCenter
         ) {
             if (events.isEmpty()) {
-                Image(
-                    imageVector = LCTheme.icons.cat,
+                LCIcon(
+                    vector = LCTheme.icons.cat,
                     contentDescription = "Kedi",
                     modifier = Modifier
                         .align(Alignment.BottomCenter)

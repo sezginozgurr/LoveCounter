@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
 import com.example.lovecounter.presentation.components.Gender
+import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.components.ProfileImagePickerDialog
 import com.example.lovecounter.presentation.theme.LCTheme
 
@@ -250,23 +250,17 @@ private fun DaySpend(
             contentAlignment = Alignment.Center,
             modifier = Modifier.clickable { onDateClick() }
         ) {
-            Icon(
-                imageVector = LCTheme.icons.yearBgFirstly,
-                contentDescription = "a",
-                tint = Color.Unspecified
+            LCIcon(
+                vector = LCTheme.icons.yearBgFirstly,
             )
-            Icon(
-                imageVector = LCTheme.icons.yearBgSecondly,
-                contentDescription = "b",
-                tint = Color.Unspecified
+            LCIcon(
+                vector = LCTheme.icons.yearBgSecondly,
             )
 
             if (!isDateSelected) {
-                Icon(
+                LCIcon(
                     modifier = Modifier.size(52.dp),
-                    imageVector = LCTheme.icons.chooseDate,
-                    contentDescription = "calendar",
-                    tint = Color.Unspecified
+                    vector = LCTheme.icons.chooseDate,
                 )
             }
 

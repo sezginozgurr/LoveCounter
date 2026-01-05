@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.onboarding.OnboardingContract.UiState
 import com.example.lovecounter.presentation.theme.LCTheme
 
@@ -131,9 +132,9 @@ fun PageContent(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
+            LCIcon(
                 modifier = Modifier.padding(top = 48.dp),
-                imageVector = LCTheme.icons.appLogo,
+                vector = LCTheme.icons.appLogo,
                 contentDescription = "App Logo"
             )
 

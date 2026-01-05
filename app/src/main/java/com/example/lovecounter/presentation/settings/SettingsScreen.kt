@@ -17,7 +17,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +37,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.lovecounter.R
+import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
@@ -103,8 +103,8 @@ private fun DailyMemoriesPanel(
             modifier = Modifier.align(Alignment.BottomCenter),
             containerColor = MaterialTheme.colorScheme.primary
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
+            LCIcon(
+                vector = Icons.Default.Add,
                 contentDescription = stringResource(id = R.string.add)
             )
         }
@@ -139,17 +139,15 @@ private fun Header() {
                     ),
                     modifier = Modifier.semantics { heading() }
                 )
-                Icon(
-                    imageVector = LCTheme.icons.heart,
+                LCIcon(
+                    vector = LCTheme.icons.heart,
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
-            Icon(
-                imageVector = LCTheme.icons.topMemories,
-                contentDescription = null,
-                tint = Color.Unspecified,
+            LCIcon(
+                vector = LCTheme.icons.topMemories,
             )
         }
     }
