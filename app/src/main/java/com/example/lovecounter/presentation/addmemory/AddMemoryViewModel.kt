@@ -21,20 +21,16 @@ class AddMemoryViewModel @Inject constructor(
 
     override fun onAction(uiAction: AddMemoryContract.UiAction) {
         when (uiAction) {
-            is AddMemoryContract.UiAction.OnTitleChange -> {
-                updateUiState { copy(title = uiAction.title) }
+            is AddMemoryContract.UiAction.OnCategorySelected -> {
+                updateUiState { copy(selectedCategory = uiAction.category) }
             }
 
-            is AddMemoryContract.UiAction.OnSubtitleChange -> {
-                updateUiState { copy(subtitle = uiAction.subtitle) }
+            is AddMemoryContract.UiAction.OnDateSelected -> {
+                updateUiState { copy(selectedDate = uiAction.date) }
             }
 
-            is AddMemoryContract.UiAction.OnImagesSelected -> {
-                updateUiState { copy(selectedImageUris = uiAction.uris) }
-            }
-
-            AddMemoryContract.UiAction.OnPickImagesClick -> {
-                // This will be handled by the screen's launcher
+            is AddMemoryContract.UiAction.OnDescriptionChange -> {
+                updateUiState { copy(description = uiAction.description) }
             }
 
             AddMemoryContract.UiAction.OnSaveClick -> handleSaveMemory()
@@ -43,15 +39,15 @@ class AddMemoryViewModel @Inject constructor(
 
     private fun handleSaveMemory() {
         val currentState = uiState.value
-        if (currentState.title.isBlank()) return
+        if (currentState.selectedCategory == null || currentState.description.isBlank()) return
 
         updateUiState { copy(isSaving = true) }
 
         viewModelScope.launch {
             val memory = Memory(
-                title = currentState.title,
-                subtitle = currentState.subtitle,
-                photoUris = currentState.selectedImageUris.map { it.toString() }
+                title = currentState.selectedCategory.title,
+                subtitle = currentState.description,
+                photoUris = emptyList()
             )
             repository.insertMemory(memory)
             updateUiState { copy(isSaving = false) }

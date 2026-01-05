@@ -142,7 +142,11 @@ private fun HeaderContent(
 @Composable
 private fun DayNamesContent() {
     Row(modifier = Modifier.fillMaxWidth()) {
-        val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        val daysOfWeek = if (Locale.getDefault().language == "tr") {
+            listOf("Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz")
+        } else {
+            listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        }
         daysOfWeek.forEach { day ->
             Text(
                 modifier = Modifier.weight(1f),
