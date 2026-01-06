@@ -82,7 +82,9 @@ fun HomeScreen(
             onDateClick = { onAction(HomeContract.UiAction.OnSelectDateClick) }
         )
 
-        Recommendations()
+        Recommendations(
+            onViewAllClick = { onAction(HomeContract.UiAction.OnViewAllRecommendationsClick) }
+        )
 
         DatingStory()
     }
@@ -103,7 +105,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun Recommendations() {
+private fun Recommendations(onViewAllClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -124,6 +126,7 @@ private fun Recommendations() {
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 modifier = Modifier
+                    .clickable(onClick = onViewAllClick)
                     .background(MaterialTheme.colorScheme.primary, CircleShape)
                     .padding(horizontal = 12.dp, vertical = 4.dp),
                 text = "Daha Fazla",

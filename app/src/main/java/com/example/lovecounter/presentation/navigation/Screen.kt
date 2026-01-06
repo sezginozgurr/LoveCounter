@@ -26,4 +26,7 @@ sealed interface Screen {
 
     @Serializable
     data object SpecialDays : Screen
+
+    @Serializable
+    data object Recommendations : Screen
 }

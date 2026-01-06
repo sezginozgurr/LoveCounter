@@ -46,6 +46,12 @@ class HomeViewModel @Inject constructor(
             is HomeContract.UiAction.OnMaleImageSelected -> {
                 updateUiState { copy(maleImage = uiAction.image, showMaleImagePicker = false) }
             }
+
+            HomeContract.UiAction.OnViewAllRecommendationsClick -> {
+                viewModelScope.launch {
+                    navigateTo(com.example.lovecounter.presentation.navigation.Screen.Recommendations)
+                }
+            }
         }
     }
 

@@ -27,6 +27,8 @@ import com.example.lovecounter.presentation.memories.MemoriesScreen
 import com.example.lovecounter.presentation.memories.MemoriesViewModel
 import com.example.lovecounter.presentation.onboarding.OnboardingScreen
 import com.example.lovecounter.presentation.onboarding.OnboardingViewModel
+import com.example.lovecounter.presentation.recommendations.RecommendationsScreen
+import com.example.lovecounter.presentation.recommendations.RecommendationsViewModel
 import com.example.lovecounter.presentation.settings.SettingsScreen
 import com.example.lovecounter.presentation.settings.SettingsViewModel
 import com.example.lovecounter.presentation.specialday.SpecialDayViewModel
@@ -138,6 +140,15 @@ fun NavigationGraph() {
                 val viewModel = hiltViewModel<SpecialDayViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 SpecialDaysScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
+            }
+
+            composable<Screen.Recommendations> {
+                val viewModel = hiltViewModel<RecommendationsViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                RecommendationsScreen(
                     uiState = uiState,
                     onAction = viewModel::onAction,
                 )
