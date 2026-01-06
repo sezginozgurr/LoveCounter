@@ -19,5 +19,6 @@ object HomeContract {
         data class OnMaleImageSelected(val image: Int) : UiAction
         data class OnFemaleImageSelected(val image: Int) : UiAction
         data object OnViewAllRecommendationsClick : UiAction
+        data object OnViewAllDatingStoriesClick : UiAction
     }
 }

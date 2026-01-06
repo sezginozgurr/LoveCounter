@@ -9,6 +9,7 @@ import com.example.lovecounter.delegation.mvi.MVI
 import com.example.lovecounter.delegation.mvi.mvi
 import com.example.lovecounter.delegation.navigator.NavigationClient
 import com.example.lovecounter.delegation.navigator.navigationClient
+import com.example.lovecounter.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -49,7 +50,13 @@ class HomeViewModel @Inject constructor(
 
             HomeContract.UiAction.OnViewAllRecommendationsClick -> {
                 viewModelScope.launch {
-                    navigateTo(com.example.lovecounter.presentation.navigation.Screen.Recommendations)
+                    navigateTo(Screen.Recommendations)
+                }
+            }
+
+            HomeContract.UiAction.OnViewAllDatingStoriesClick -> {
+                viewModelScope.launch {
+                    navigateTo(Screen.DatingStories)
                 }
             }
         }

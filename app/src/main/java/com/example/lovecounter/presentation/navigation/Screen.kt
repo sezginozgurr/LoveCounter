@@ -29,4 +29,7 @@ sealed interface Screen {
 
     @Serializable
     data object Recommendations : Screen
+
+    @Serializable
+    data object DatingStories : Screen
 }

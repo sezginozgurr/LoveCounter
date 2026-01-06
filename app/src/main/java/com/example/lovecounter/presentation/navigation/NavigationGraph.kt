@@ -21,6 +21,8 @@ import com.example.lovecounter.delegation.navigator.NavigationClientCollector
 import com.example.lovecounter.presentation.addmemory.AddMemoryScreen
 import com.example.lovecounter.presentation.addmemory.AddMemoryViewModel
 import com.example.lovecounter.presentation.components.LCBottomNavigation
+import com.example.lovecounter.presentation.datingstories.DatingStoriesScreen
+import com.example.lovecounter.presentation.datingstories.DatingStoriesViewModel
 import com.example.lovecounter.presentation.home.HomeScreen
 import com.example.lovecounter.presentation.home.HomeViewModel
 import com.example.lovecounter.presentation.memories.MemoriesScreen
@@ -149,6 +151,15 @@ fun NavigationGraph() {
                 val viewModel = hiltViewModel<RecommendationsViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 RecommendationsScreen(
+                    uiState = uiState,
+                    onAction = viewModel::onAction,
+                )
+            }
+
+            composable<Screen.DatingStories> {
+                val viewModel = hiltViewModel<DatingStoriesViewModel>()
+                val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+                DatingStoriesScreen(
                     uiState = uiState,
                     onAction = viewModel::onAction,
                 )

@@ -86,7 +86,9 @@ fun HomeScreen(
             onViewAllClick = { onAction(HomeContract.UiAction.OnViewAllRecommendationsClick) }
         )
 
-        DatingStory()
+        DatingStory(
+            onViewAllClick = { onAction(HomeContract.UiAction.OnViewAllDatingStoriesClick) }
+        )
     }
 
     ProfileImagePickerDialog(
@@ -168,7 +170,7 @@ private fun Recommendations(onViewAllClick: () -> Unit) {
 }
 
 @Composable
-private fun DatingStory() {
+private fun DatingStory(onViewAllClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -192,6 +194,7 @@ private fun DatingStory() {
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.background,
                 modifier = Modifier
+                    .clickable(onClick = onViewAllClick)
                     .background(MaterialTheme.colorScheme.primary, CircleShape)
                     .padding(horizontal = 12.dp, vertical = 4.dp),
                 fontSize = 10.sp
