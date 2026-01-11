@@ -1,10 +1,10 @@
 package com.example.lovecounter.data.repository
 
-import com.example.lovecounter.data.model.DatingStory
-import com.example.lovecounter.data.model.Memory
-import com.example.lovecounter.data.model.Recommendation
-import com.example.lovecounter.data.model.SpecialDay
-import com.example.lovecounter.data.model.User
+import com.example.lovecounter.data.model.DatingStoryEntity
+import com.example.lovecounter.data.model.MemoryEntity
+import com.example.lovecounter.data.model.RecommendationEntity
+import com.example.lovecounter.data.model.SpecialDayEntity
+import com.example.lovecounter.data.model.UserEntity
 import com.example.lovecounter.data.source.local.MainRoomDB
 import com.example.lovecounter.data.source.remote.MainService
 import com.example.lovecounter.domain.repository.MainRepository
@@ -19,45 +19,45 @@ class MainRepositoryImpl @Inject constructor(
     private val mainRoomDB: MainRoomDB,
 ) : MainRepository {
 
-    // User operations
-    override suspend fun insertUser(user: User) {
-        mainRoomDB.userDao().insertUser(user)
+    // UserEntity operations
+    override suspend fun insertUser(userEntity: UserEntity) {
+        mainRoomDB.userDao().insertUser(userEntity)
     }
 
-    override suspend fun updateUser(user: User) {
-        mainRoomDB.userDao().updateUser(user)
+    override suspend fun updateUser(userEntity: UserEntity) {
+        mainRoomDB.userDao().updateUser(userEntity)
     }
 
-    override fun getUser(): Flow<User?> {
+    override fun getUser(): Flow<UserEntity?> {
         return mainRoomDB.userDao().getUser()
     }
 
-    override suspend fun getUserOnce(): User? {
+    override suspend fun getUserOnce(): UserEntity? {
         return mainRoomDB.userDao().getUserOnce()
     }
 
-    // Memory operations
-    override suspend fun insertMemory(memory: Memory): Long {
-        return mainRoomDB.memoryDao().insertMemory(memory)
+    // MemoryEntity operations
+    override suspend fun insertMemory(memoryEntity: MemoryEntity): Long {
+        return mainRoomDB.memoryDao().insertMemory(memoryEntity)
     }
 
-    override suspend fun updateMemory(memory: Memory) {
-        mainRoomDB.memoryDao().updateMemory(memory)
+    override suspend fun updateMemory(memoryEntity: MemoryEntity) {
+        mainRoomDB.memoryDao().updateMemory(memoryEntity)
     }
 
-    override suspend fun deleteMemory(memory: Memory) {
-        mainRoomDB.memoryDao().deleteMemory(memory)
+    override suspend fun deleteMemory(memoryEntity: MemoryEntity) {
+        mainRoomDB.memoryDao().deleteMemory(memoryEntity)
     }
 
-    override fun getMemories(): Flow<List<Memory>> {
+    override fun getMemories(): Flow<List<MemoryEntity>> {
         return mainRoomDB.memoryDao().getAllMemories()
     }
 
-    override suspend fun getMemoryById(id: Int): Memory? {
+    override suspend fun getMemoryById(id: Int): MemoryEntity? {
         return mainRoomDB.memoryDao().getMemoryById(id)
     }
 
-    override fun getFavoriteMemories(): Flow<List<Memory>> {
+    override fun getFavoriteMemories(): Flow<List<MemoryEntity>> {
         return mainRoomDB.memoryDao().getFavoriteMemories()
     }
 
@@ -70,27 +70,27 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     // Special Day operations
-    override suspend fun insertSpecialDay(specialDay: SpecialDay): Long {
-        return mainRoomDB.specialDayDao().insertSpecialDay(specialDay)
+    override suspend fun insertSpecialDay(specialDayEntity: SpecialDayEntity): Long {
+        return mainRoomDB.specialDayDao().insertSpecialDay(specialDayEntity)
     }
 
-    override suspend fun updateSpecialDay(specialDay: SpecialDay) {
-        mainRoomDB.specialDayDao().updateSpecialDay(specialDay)
+    override suspend fun updateSpecialDay(specialDayEntity: SpecialDayEntity) {
+        mainRoomDB.specialDayDao().updateSpecialDay(specialDayEntity)
     }
 
-    override suspend fun deleteSpecialDay(specialDay: SpecialDay) {
-        mainRoomDB.specialDayDao().deleteSpecialDay(specialDay)
+    override suspend fun deleteSpecialDay(specialDayEntity: SpecialDayEntity) {
+        mainRoomDB.specialDayDao().deleteSpecialDay(specialDayEntity)
     }
 
-    override fun getAllSpecialDays(): Flow<List<SpecialDay>> {
+    override fun getAllSpecialDays(): Flow<List<SpecialDayEntity>> {
         return mainRoomDB.specialDayDao().getAllSpecialDays()
     }
 
-    override suspend fun getSpecialDayById(id: Int): SpecialDay? {
+    override suspend fun getSpecialDayById(id: Int): SpecialDayEntity? {
         return mainRoomDB.specialDayDao().getSpecialDayById(id)
     }
 
-    override fun getSpecialDaysByCategory(category: String): Flow<List<SpecialDay>> {
+    override fun getSpecialDaysByCategory(category: String): Flow<List<SpecialDayEntity>> {
         return mainRoomDB.specialDayDao().getSpecialDaysByCategory(category)
     }
 
@@ -99,27 +99,27 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     // Dating Story operations
-    override suspend fun insertDatingStory(story: DatingStory): Long {
+    override suspend fun insertDatingStory(story: DatingStoryEntity): Long {
         return mainRoomDB.datingStoryDao().insertDatingStory(story)
     }
 
-    override suspend fun updateDatingStory(story: DatingStory) {
+    override suspend fun updateDatingStory(story: DatingStoryEntity) {
         mainRoomDB.datingStoryDao().updateDatingStory(story)
     }
 
-    override suspend fun deleteDatingStory(story: DatingStory) {
+    override suspend fun deleteDatingStory(story: DatingStoryEntity) {
         mainRoomDB.datingStoryDao().deleteDatingStory(story)
     }
 
-    override fun getAllDatingStories(): Flow<List<DatingStory>> {
+    override fun getAllDatingStories(): Flow<List<DatingStoryEntity>> {
         return mainRoomDB.datingStoryDao().getAllDatingStories()
     }
 
-    override suspend fun getDatingStoryById(id: Int): DatingStory? {
+    override suspend fun getDatingStoryById(id: Int): DatingStoryEntity? {
         return mainRoomDB.datingStoryDao().getDatingStoryById(id)
     }
 
-    override fun getFavoriteDatingStories(): Flow<List<DatingStory>> {
+    override fun getFavoriteDatingStories(): Flow<List<DatingStoryEntity>> {
         return mainRoomDB.datingStoryDao().getFavoriteDatingStories()
     }
 
@@ -127,32 +127,32 @@ class MainRepositoryImpl @Inject constructor(
         return mainRoomDB.datingStoryDao().getDatingStoriesCount()
     }
 
-    // Recommendation operations
-    override suspend fun insertRecommendation(recommendation: Recommendation): Long {
-        return mainRoomDB.recommendationDao().insertRecommendation(recommendation)
+    // RecommendationEntity operations
+    override suspend fun insertRecommendation(recommendationEntity: RecommendationEntity): Long {
+        return mainRoomDB.recommendationDao().insertRecommendation(recommendationEntity)
     }
 
-    override suspend fun insertRecommendations(recommendations: List<Recommendation>) {
-        mainRoomDB.recommendationDao().insertRecommendations(recommendations)
+    override suspend fun insertRecommendations(recommendationEntities: List<RecommendationEntity>) {
+        mainRoomDB.recommendationDao().insertRecommendations(recommendationEntities)
     }
 
-    override suspend fun updateRecommendation(recommendation: Recommendation) {
-        mainRoomDB.recommendationDao().updateRecommendation(recommendation)
+    override suspend fun updateRecommendation(recommendationEntity: RecommendationEntity) {
+        mainRoomDB.recommendationDao().updateRecommendation(recommendationEntity)
     }
 
-    override suspend fun deleteRecommendation(recommendation: Recommendation) {
-        mainRoomDB.recommendationDao().deleteRecommendation(recommendation)
+    override suspend fun deleteRecommendation(recommendationEntity: RecommendationEntity) {
+        mainRoomDB.recommendationDao().deleteRecommendation(recommendationEntity)
     }
 
-    override fun getAllRecommendations(): Flow<List<Recommendation>> {
+    override fun getAllRecommendations(): Flow<List<RecommendationEntity>> {
         return mainRoomDB.recommendationDao().getAllRecommendations()
     }
 
-    override suspend fun getRecommendationById(id: Int): Recommendation? {
+    override suspend fun getRecommendationById(id: Int): RecommendationEntity? {
         return mainRoomDB.recommendationDao().getRecommendationById(id)
     }
 
-    override fun getLikedRecommendations(): Flow<List<Recommendation>> {
+    override fun getLikedRecommendations(): Flow<List<RecommendationEntity>> {
         return mainRoomDB.recommendationDao().getLikedRecommendations()
     }
 

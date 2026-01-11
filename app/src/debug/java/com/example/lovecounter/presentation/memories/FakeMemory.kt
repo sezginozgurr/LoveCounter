@@ -1,22 +1,22 @@
 package com.example.lovecounter.presentation.memories
 
-import com.example.lovecounter.data.model.Memory
+import com.example.lovecounter.data.model.MemoryEntity
 
-fun getFakeMemories(): List<Memory> {
+fun getFakeMemories(): List<MemoryEntity> {
     return listOf(
-        Memory(
+        MemoryEntity(
             id = 1,
             title = "Our first trip",
             subtitle = "We went to the beach and had a great time.",
             photoUris = emptyList()
         ),
-        Memory(
+        MemoryEntity(
             id = 2,
             title = "My birthday",
             subtitle = "You threw me a surprise party!",
             photoUris = emptyList()
         ),
-        Memory(
+        MemoryEntity(
             id = 3,
             title = "Our anniversary",
             subtitle = "We had a romantic dinner.",

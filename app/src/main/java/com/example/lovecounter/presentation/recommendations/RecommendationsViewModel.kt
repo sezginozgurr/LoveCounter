@@ -2,7 +2,7 @@ package com.example.lovecounter.presentation.recommendations
 
 import androidx.lifecycle.ViewModel
 import com.example.lovecounter.R
-import com.example.lovecounter.data.model.Recommendation
+import com.example.lovecounter.data.model.RecommendationEntity
 import com.example.lovecounter.delegation.dialogclient.DialogClient
 import com.example.lovecounter.delegation.dialogclient.dialogClient
 import com.example.lovecounter.delegation.mvi.MVI
@@ -27,27 +27,27 @@ class RecommendationsViewModel @Inject constructor() : ViewModel(),
             is RecommendationsContract.UiAction.OnAddRecommendationClick -> Unit
             is RecommendationsContract.UiAction.OnShareClick -> Unit
             is RecommendationsContract.UiAction.OnRecommendationClick -> Unit
-            is RecommendationsContract.UiAction.OnLikeClick -> toggleLike(uiAction.recommendation)
+            is RecommendationsContract.UiAction.OnLikeClick -> toggleLike(uiAction.recommendationEntity)
         }
     }
 
     private fun loadRecommendations() {
-        val mockRecommendations = listOf(
-            Recommendation(
+        val mockRecommendationEntities = listOf(
+            RecommendationEntity(
                 id = 1,
                 coupleName = "Merve & Özgür",
                 duration = "10 Yıl 5 Ay 20 Gün",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                 photoResId = R.drawable.fakephoto
             ),
-            Recommendation(
+            RecommendationEntity(
                 id = 2,
                 coupleName = "Merve & Özgür",
                 duration = "10 Yıl 5 Ay 20 Gün",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                 photoResId = R.drawable.fakephoto
             ),
-            Recommendation(
+            RecommendationEntity(
                 id = 3,
                 coupleName = "Merve & Özgür",
                 duration = "10 Yıl 5 Ay 20 Gün",
@@ -55,14 +55,14 @@ class RecommendationsViewModel @Inject constructor() : ViewModel(),
                 photoResId = R.drawable.fakephoto
             )
         )
-        updateUiState { copy(recommendations = mockRecommendations) }
+        updateUiState { copy(recommendationEntities = mockRecommendationEntities) }
     }
 
-    private fun toggleLike(recommendation: Recommendation) {
+    private fun toggleLike(recommendationEntity: RecommendationEntity) {
         updateUiState {
             copy(
-                recommendations = recommendations.map {
-                    if (it.id == recommendation.id) it.copy(isLiked = !it.isLiked) else it
+                recommendationEntities = recommendationEntities.map {
+                    if (it.id == recommendationEntity.id) it.copy(isLiked = !it.isLiked) else it
                 }
             )
         }

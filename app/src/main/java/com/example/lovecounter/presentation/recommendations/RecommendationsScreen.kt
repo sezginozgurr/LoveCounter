@@ -43,7 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
-import com.example.lovecounter.data.model.Recommendation
+import com.example.lovecounter.data.model.RecommendationEntity
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
@@ -70,9 +70,9 @@ fun RecommendationsScreen(
                     contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    items(uiState.recommendations) { recommendation ->
+                    items(uiState.recommendationEntities) { recommendation ->
                         RecommendationCard(
-                            recommendation = recommendation,
+                            recommendationEntity = recommendation,
                             onLikeClick = {
                                 onAction(RecommendationsContract.UiAction.OnLikeClick(recommendation))
                             },
@@ -158,7 +158,7 @@ private fun RecommendationsHeader() {
 
 @Composable
 private fun RecommendationCard(
-    recommendation: Recommendation,
+    recommendationEntity: RecommendationEntity,
     onLikeClick: () -> Unit,
     onShareClick: () -> Unit,
     onClick: () -> Unit,
@@ -181,8 +181,8 @@ private fun RecommendationCard(
         ) {
             // Couple Photo
             Image(
-                painter = painterResource(id = recommendation.photoResId),
-                contentDescription = recommendation.coupleName,
+                painter = painterResource(id = recommendationEntity.photoResId),
+                contentDescription = recommendationEntity.coupleName,
                 modifier = Modifier
                     .width(100.dp)
                     .height(150.dp)
@@ -200,7 +200,7 @@ private fun RecommendationCard(
                 Column {
                     // Couple Name
                     Text(
-                        text = recommendation.coupleName,
+                        text = recommendationEntity.coupleName,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -208,7 +208,7 @@ private fun RecommendationCard(
 
                     // Duration
                     Text(
-                        text = recommendation.duration,
+                        text = recommendationEntity.duration,
                         fontSize = 12.sp,
                         color = Color.Gray,
                         modifier = Modifier.padding(top = 4.dp)
@@ -218,7 +218,7 @@ private fun RecommendationCard(
 
                     // Description
                     Text(
-                        text = recommendation.description,
+                        text = recommendationEntity.description,
                         fontSize = 12.sp,
                         color = Color.DarkGray,
                         lineHeight = 16.sp,
@@ -238,13 +238,13 @@ private fun RecommendationCard(
                         modifier = Modifier.clickable(onClick = onLikeClick)
                     ) {
                         Icon(
-                            imageVector = if (recommendation.isLiked) {
+                            imageVector = if (recommendationEntity.isLiked) {
                                 Icons.Default.Favorite
                             } else {
                                 Icons.Default.FavoriteBorder
                             },
                             contentDescription = "Beğen",
-                            tint = if (recommendation.isLiked) {
+                            tint = if (recommendationEntity.isLiked) {
                                 MaterialTheme.colorScheme.primary
                             } else {
                                 Color.Gray
@@ -291,15 +291,15 @@ private fun RecommendationsScreenPreview() {
     LCTheme {
         RecommendationsScreen(
             uiState = RecommendationsContract.UiState(
-                recommendations = listOf(
-                    Recommendation(
+                recommendationEntities = listOf(
+                    RecommendationEntity(
                         id = 1,
                         coupleName = "Merve & Özgür",
                         duration = "10 Yıl 5 Ay 20 Gün",
                         description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
                         photoResId = R.drawable.fakephoto
                     ),
-                    Recommendation(
+                    RecommendationEntity(
                         id = 2,
                         coupleName = "Merve & Özgür",
                         duration = "10 Yıl 5 Ay 20 Gün",

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
  * Entity representing a couple's dating story or shared experience
  */
 @Entity(tableName = "dating_stories")
-data class DatingStory(
+data class DatingStoryEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,

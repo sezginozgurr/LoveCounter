@@ -6,32 +6,32 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.lovecounter.data.model.DatingStory
+import com.example.lovecounter.data.model.DatingStoryEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for DatingStory operations
+ * DAO for DatingStoryEntity operations
  */
 @Dao
 interface DatingStoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDatingStory(story: DatingStory): Long
+    suspend fun insertDatingStory(story: DatingStoryEntity): Long
 
     @Update
-    suspend fun updateDatingStory(story: DatingStory)
+    suspend fun updateDatingStory(story: DatingStoryEntity)
 
     @Delete
-    suspend fun deleteDatingStory(story: DatingStory)
+    suspend fun deleteDatingStory(story: DatingStoryEntity)
 
     @Query("SELECT * FROM dating_stories ORDER BY dateTimestamp DESC")
-    fun getAllDatingStories(): Flow<List<DatingStory>>
+    fun getAllDatingStories(): Flow<List<DatingStoryEntity>>
 
     @Query("SELECT * FROM dating_stories WHERE id = :id")
-    suspend fun getDatingStoryById(id: Int): DatingStory?
+    suspend fun getDatingStoryById(id: Int): DatingStoryEntity?
 
     @Query("SELECT * FROM dating_stories WHERE isFavorite = 1 ORDER BY dateTimestamp DESC")
-    fun getFavoriteDatingStories(): Flow<List<DatingStory>>
+    fun getFavoriteDatingStories(): Flow<List<DatingStoryEntity>>
 
     @Query("UPDATE dating_stories SET isFavorite = :isFavorite WHERE id = :id")
     suspend fun updateDatingStoryFavorite(id: Int, isFavorite: Boolean)

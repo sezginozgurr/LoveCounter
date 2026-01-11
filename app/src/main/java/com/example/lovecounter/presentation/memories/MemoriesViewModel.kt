@@ -30,7 +30,7 @@ class MemoriesViewModel @Inject constructor(
             }
 
             is MemoriesContract.UiAction.OnMemoryClick -> {
-                // Navigate to memory detail if implemented
+                // Navigate to memoryEntity detail if implemented
             }
         }
     }

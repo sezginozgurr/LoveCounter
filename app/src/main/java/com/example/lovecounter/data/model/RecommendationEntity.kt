@@ -4,11 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Entity representing a couple's recommendation/story for caching
+ * Entity representing a couple's recommendationEntity/story for caching
  * Can be fetched from remote API and cached locally
  */
-@Entity(tableName = "recommendations")
-data class Recommendation(
+@Entity(tableName = "recommendationEntities")
+data class RecommendationEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val coupleName: String,

@@ -2,7 +2,7 @@ package com.example.lovecounter.presentation.addmemory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lovecounter.data.model.Memory
+import com.example.lovecounter.data.model.MemoryEntity
 import com.example.lovecounter.delegation.mvi.MVI
 import com.example.lovecounter.delegation.mvi.mvi
 import com.example.lovecounter.delegation.navigator.NavigationClient
@@ -44,12 +44,12 @@ class AddMemoryViewModel @Inject constructor(
         updateUiState { copy(isSaving = true) }
 
         viewModelScope.launch {
-            val memory = Memory(
+            val memoryEntity = MemoryEntity(
                 title = currentState.selectedCategory.title,
                 subtitle = currentState.description,
                 photoUris = emptyList()
             )
-            repository.insertMemory(memory)
+            repository.insertMemory(memoryEntity)
             updateUiState { copy(isSaving = false) }
             navigateBack()
         }

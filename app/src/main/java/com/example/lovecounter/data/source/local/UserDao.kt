@@ -5,26 +5,26 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.lovecounter.data.model.User
+import com.example.lovecounter.data.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for User/Profile operations
+ * DAO for UserEntity/Profile operations
  */
 @Dao
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUser(user: User)
+    suspend fun insertUser(userEntity: UserEntity)
 
     @Update
-    suspend fun updateUser(user: User)
+    suspend fun updateUser(userEntity: UserEntity)
 
     @Query("SELECT * FROM user_profile WHERE id = 1")
-    fun getUser(): Flow<User?>
+    fun getUser(): Flow<UserEntity?>
 
     @Query("SELECT * FROM user_profile WHERE id = 1")
-    suspend fun getUserOnce(): User?
+    suspend fun getUserOnce(): UserEntity?
 
     @Query("DELETE FROM user_profile")
     suspend fun deleteUser()

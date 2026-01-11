@@ -29,7 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.lovecounter.data.model.Memory
+import com.example.lovecounter.data.model.MemoryEntity
 import com.example.lovecounter.presentation.components.LCIcon
 import com.example.lovecounter.presentation.theme.LCTheme
 
@@ -53,7 +53,7 @@ fun MemoriesScreen(
             ) {
                 items(uiState.memories) { memory ->
                     MemoryItem(
-                        memory = memory,
+                        memoryEntity = memory,
                         onClick = { onAction(MemoriesContract.UiAction.OnMemoryClick(memory)) }
                     )
                 }
@@ -100,7 +100,7 @@ private fun MemoriesBackground() {
 
 @Composable
 private fun MemoryItem(
-    memory: Memory,
+    memoryEntity: MemoryEntity,
     onClick: () -> Unit,
 ) {
     Card(
@@ -115,12 +115,12 @@ private fun MemoryItem(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = memory.title,
+                text = memoryEntity.title,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
-            if (memory.subtitle.isNotEmpty()) {
+            if (memoryEntity.subtitle.isNotEmpty()) {
                 Text(
-                    text = memory.subtitle,
+                    text = memoryEntity.subtitle,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -136,9 +136,9 @@ private fun MemoriesScreenPreview() {
         MemoriesScreen(
             uiState = MemoriesContract.UiState(
                 memories = listOf(
-                    Memory(1, "A Special Day", "Our first date", listOf()),
-                    Memory(2, "Vacation", "Trip to the beach", listOf()),
-                    Memory(3, "Anniversary", "Celebrating together", listOf())
+                    MemoryEntity(1, "A Special Day", "Our first date", listOf()),
+                    MemoryEntity(2, "Vacation", "Trip to the beach", listOf()),
+                    MemoryEntity(3, "Anniversary", "Celebrating together", listOf())
                 ),
                 isLoading = false
             ),

@@ -2,7 +2,7 @@ package com.example.lovecounter.presentation.datingstories
 
 import androidx.lifecycle.ViewModel
 import com.example.lovecounter.R
-import com.example.lovecounter.data.model.DatingStory
+import com.example.lovecounter.data.model.DatingStoryEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,31 +34,31 @@ class DatingStoriesViewModel @Inject constructor() : ViewModel() {
     private fun loadDatingStories() {
         // Mock data for demonstration
         val mockStories = listOf(
-            DatingStory(
+            DatingStoryEntity(
                 id = 1,
                 title = "Buraya Başlık Gelecek",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 photoResId = R.drawable.fakephoto
             ),
-            DatingStory(
+            DatingStoryEntity(
                 id = 2,
                 title = "Buraya Başlık Gelecek",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 photoResId = R.drawable.fakephoto
             ),
-            DatingStory(
+            DatingStoryEntity(
                 id = 3,
                 title = "Buraya Başlık Gelecek",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 photoResId = R.drawable.fakephoto
             ),
-            DatingStory(
+            DatingStoryEntity(
                 id = 4,
                 title = "Buraya Başlık Gelecek",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 photoResId = R.drawable.fakephoto
             ),
-            DatingStory(
+            DatingStoryEntity(
                 id = 5,
                 title = "Buraya Başlık Gelecek",
                 description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",

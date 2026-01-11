@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lovecounter.R
-import com.example.lovecounter.data.model.DatingStory
+import com.example.lovecounter.data.model.DatingStoryEntity
 import com.example.lovecounter.presentation.theme.LCTheme
 
 @Composable
@@ -144,7 +144,7 @@ private fun DatingStoriesHeader() {
 
 @Composable
 private fun DatingStoryItem(
-    story: DatingStory,
+    story: DatingStoryEntity,
     onClick: () -> Unit,
 ) {
     Row(
@@ -195,19 +195,19 @@ private fun DatingStoriesScreenPreview() {
         DatingStoriesScreen(
             uiState = DatingStoriesContract.UiState(
                 stories = listOf(
-                    DatingStory(
+                    DatingStoryEntity(
                         id = 1,
                         title = "Buraya Başlık Gelecek",
                         description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                         photoResId = R.drawable.fakephoto
                     ),
-                    DatingStory(
+                    DatingStoryEntity(
                         id = 2,
                         title = "Buraya Başlık Gelecek",
                         description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                         photoResId = R.drawable.fakephoto
                     ),
-                    DatingStory(
+                    DatingStoryEntity(
                         id = 3,
                         title = "Buraya Başlık Gelecek",
                         description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",

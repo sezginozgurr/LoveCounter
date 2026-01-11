@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
  * Entity representing special days like anniversaries, birthdays, etc.
  */
 @Entity(tableName = "special_days")
-data class SpecialDay(
+data class SpecialDayEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
