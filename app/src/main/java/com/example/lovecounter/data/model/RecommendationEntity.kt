@@ -12,12 +12,12 @@ data class RecommendationEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val coupleName: String,
-    val duration: String, // E.g., "5 yıl birlikte"
+    val duration: String,
     val description: String,
-    val photoUri: String? = null, // Photo URI for remote images
-    val photoResId: Int? = null, // Photo resource ID for local images
+    val photoUri: String? = null,
+    val photoResId: Int? = null,
     val isLiked: Boolean = false,
     val likeCount: Int = 0,
     val createdAt: Long = System.currentTimeMillis(),
-    val updatedAt: Long = System.currentTimeMillis()
+    val updatedAt: Long = System.currentTimeMillis(),
 )

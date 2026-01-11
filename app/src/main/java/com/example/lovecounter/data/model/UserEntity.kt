@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user_profile")
 data class UserEntity(
     @PrimaryKey
-    val id: Int = 1, // Always 1 since we only have one couple
+    val id: Int = 1,
     val userName: String = "",
     val partnerName: String = "",
-    val relationshipStartDate: Long? = null, // Timestamp in milliseconds
-    val userPhotoResId: Int? = null, // For drawable resource IDs
-    val partnerPhotoResId: Int? = null, // For drawable resource IDs
+    val relationshipStartDate: Long? = null,
+    val userPhotoResId: Int? = null,
+    val partnerPhotoResId: Int? = null,
     val createdAt: Long = System.currentTimeMillis(),
-    val updatedAt: Long = System.currentTimeMillis()
+    val updatedAt: Long = System.currentTimeMillis(),
 )

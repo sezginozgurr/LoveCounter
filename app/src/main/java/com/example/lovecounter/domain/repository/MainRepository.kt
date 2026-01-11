@@ -12,13 +12,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MainRepository {
 
-    // UserEntity operations
     suspend fun insertUser(userEntity: UserEntity)
     suspend fun updateUser(userEntity: UserEntity)
     fun getUser(): Flow<UserEntity?>
     suspend fun getUserOnce(): UserEntity?
 
-    // MemoryEntity operations
     suspend fun insertMemory(memoryEntity: MemoryEntity): Long
     suspend fun updateMemory(memoryEntity: MemoryEntity)
     suspend fun deleteMemory(memoryEntity: MemoryEntity)
@@ -28,7 +26,6 @@ interface MainRepository {
     suspend fun updateMemoryFavorite(id: Int, isFavorite: Boolean)
     fun getMemoriesCount(): Flow<Int>
 
-    // Special Day operations
     suspend fun insertSpecialDay(specialDayEntity: SpecialDayEntity): Long
     suspend fun updateSpecialDay(specialDayEntity: SpecialDayEntity)
     suspend fun deleteSpecialDay(specialDayEntity: SpecialDayEntity)
@@ -37,7 +34,6 @@ interface MainRepository {
     fun getSpecialDaysByCategory(category: String): Flow<List<SpecialDayEntity>>
     fun getSpecialDaysCount(): Flow<Int>
 
-    // Dating Story operations
     suspend fun insertDatingStory(story: DatingStoryEntity): Long
     suspend fun updateDatingStory(story: DatingStoryEntity)
     suspend fun deleteDatingStory(story: DatingStoryEntity)
@@ -46,7 +42,6 @@ interface MainRepository {
     fun getFavoriteDatingStories(): Flow<List<DatingStoryEntity>>
     fun getDatingStoriesCount(): Flow<Int>
 
-    // RecommendationEntity operations
     suspend fun insertRecommendation(recommendationEntity: RecommendationEntity): Long
     suspend fun insertRecommendations(recommendationEntities: List<RecommendationEntity>)
     suspend fun updateRecommendation(recommendationEntity: RecommendationEntity)

@@ -19,7 +19,6 @@ class MainRepositoryImpl @Inject constructor(
     private val mainRoomDB: MainRoomDB,
 ) : MainRepository {
 
-    // UserEntity operations
     override suspend fun insertUser(userEntity: UserEntity) {
         mainRoomDB.userDao().insertUser(userEntity)
     }
@@ -36,7 +35,6 @@ class MainRepositoryImpl @Inject constructor(
         return mainRoomDB.userDao().getUserOnce()
     }
 
-    // MemoryEntity operations
     override suspend fun insertMemory(memoryEntity: MemoryEntity): Long {
         return mainRoomDB.memoryDao().insertMemory(memoryEntity)
     }
@@ -69,7 +67,6 @@ class MainRepositoryImpl @Inject constructor(
         return mainRoomDB.memoryDao().getMemoriesCount()
     }
 
-    // Special Day operations
     override suspend fun insertSpecialDay(specialDayEntity: SpecialDayEntity): Long {
         return mainRoomDB.specialDayDao().insertSpecialDay(specialDayEntity)
     }
@@ -98,7 +95,6 @@ class MainRepositoryImpl @Inject constructor(
         return mainRoomDB.specialDayDao().getSpecialDaysCount()
     }
 
-    // Dating Story operations
     override suspend fun insertDatingStory(story: DatingStoryEntity): Long {
         return mainRoomDB.datingStoryDao().insertDatingStory(story)
     }
@@ -127,7 +123,6 @@ class MainRepositoryImpl @Inject constructor(
         return mainRoomDB.datingStoryDao().getDatingStoriesCount()
     }
 
-    // RecommendationEntity operations
     override suspend fun insertRecommendation(recommendationEntity: RecommendationEntity): Long {
         return mainRoomDB.recommendationDao().insertRecommendation(recommendationEntity)
     }

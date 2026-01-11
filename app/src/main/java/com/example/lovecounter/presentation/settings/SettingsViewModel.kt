@@ -22,9 +22,7 @@ class SettingsViewModel @Inject constructor() : ViewModel(),
                 navigateTo(Screen.AddMemory)
             }
 
-            is SettingsContract.UiAction.OnMemoryItemClick -> {
-                // Navigate to memoryEntity detail or handle item click
-            }
+            is SettingsContract.UiAction.OnMemoryItemClick -> Unit
         }
     }
 }

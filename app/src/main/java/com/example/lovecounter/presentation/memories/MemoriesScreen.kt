@@ -136,9 +136,9 @@ private fun MemoriesScreenPreview() {
         MemoriesScreen(
             uiState = MemoriesContract.UiState(
                 memories = listOf(
-                    MemoryEntity(1, "A Special Day", "Our first date", listOf()),
-                    MemoryEntity(2, "Vacation", "Trip to the beach", listOf()),
-                    MemoryEntity(3, "Anniversary", "Celebrating together", listOf())
+                    MemoryEntity(id = 1, title = "A Special Day", subtitle = "Our first date"),
+                    MemoryEntity(id = 2, title = "Vacation", subtitle = "Trip to the beach"),
+                    MemoryEntity(id = 3, title = "Anniversary", subtitle = "Celebrating together")
                 ),
                 isLoading = false
             ),

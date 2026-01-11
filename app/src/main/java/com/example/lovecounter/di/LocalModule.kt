@@ -26,9 +26,7 @@ object LocalModule {
             context,
             MainRoomDB::class.java,
             "main_database"
-        )
-            .fallbackToDestructiveMigration() // For development - remove in production
-            .build()
+        ).fallbackToDestructiveMigration(false).build()
     }
 
     @Provides

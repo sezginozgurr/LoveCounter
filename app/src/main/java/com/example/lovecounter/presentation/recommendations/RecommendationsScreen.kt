@@ -146,7 +146,6 @@ private fun RecommendationsHeader() {
             lineHeight = 32.sp
         )
 
-        // Envelope icon (using a placeholder drawable)
         Icon(
             painter = painterResource(id = R.drawable.fakephoto),
             contentDescription = "Tavsiyeler",
@@ -179,9 +178,8 @@ private fun RecommendationCard(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Couple Photo
             Image(
-                painter = painterResource(id = recommendationEntity.photoResId),
+                painter = painterResource(id = recommendationEntity.photoResId ?: R.drawable.fakephoto),
                 contentDescription = recommendationEntity.coupleName,
                 modifier = Modifier
                     .width(100.dp)
@@ -190,7 +188,6 @@ private fun RecommendationCard(
                 contentScale = ContentScale.Crop
             )
 
-            // Content Column
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -198,7 +195,6 @@ private fun RecommendationCard(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    // Couple Name
                     Text(
                         text = recommendationEntity.coupleName,
                         fontSize = 16.sp,
@@ -206,7 +202,6 @@ private fun RecommendationCard(
                         color = Color.Black
                     )
 
-                    // Duration
                     Text(
                         text = recommendationEntity.duration,
                         fontSize = 12.sp,
@@ -216,7 +211,6 @@ private fun RecommendationCard(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Description
                     Text(
                         text = recommendationEntity.description,
                         fontSize = 12.sp,
@@ -226,13 +220,11 @@ private fun RecommendationCard(
                     )
                 }
 
-                // Action Buttons Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Like Button
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable(onClick = onLikeClick)
@@ -261,7 +253,6 @@ private fun RecommendationCard(
 
                     Spacer(modifier = Modifier.width(12.dp))
 
-                    // Share Button
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable(onClick = onShareClick)

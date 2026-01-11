@@ -132,7 +132,6 @@ private fun DatingStoriesHeader() {
             lineHeight = 32.sp
         )
 
-        // Phone/message icon (using a placeholder drawable)
         Icon(
             painter = painterResource(id = R.drawable.fakephoto),
             contentDescription = "Hikayeler",
@@ -154,9 +153,8 @@ private fun DatingStoryItem(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Circular Photo
         Image(
-            painter = painterResource(id = story.photoResId),
+            painter = painterResource(id = story.photoResId ?: R.drawable.fakephoto),
             contentDescription = story.title,
             modifier = Modifier
                 .size(80.dp)
@@ -164,11 +162,9 @@ private fun DatingStoryItem(
             contentScale = ContentScale.Crop
         )
 
-        // Content Column
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            // Title
             Text(
                 text = story.title,
                 fontSize = 16.sp,
@@ -176,7 +172,6 @@ private fun DatingStoryItem(
                 color = Color.White
             )
 
-            // Description
             Text(
                 text = story.description,
                 fontSize = 13.sp,

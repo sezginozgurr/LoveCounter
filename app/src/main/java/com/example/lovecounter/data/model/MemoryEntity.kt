@@ -17,9 +17,9 @@ data class MemoryEntity(
     val subtitle: String,
     val description: String? = null,
     val photoUris: List<String> = emptyList(),
-    val dateTimestamp: Long = System.currentTimeMillis(), // When the memoryEntity occurred
-    val location: String? = null, // Optional location
+    val dateTimestamp: Long = System.currentTimeMillis(),
+    val location: String? = null,
     val isFavorite: Boolean = false,
     val createdAt: Long = System.currentTimeMillis(),
-    val updatedAt: Long = System.currentTimeMillis()
+    val updatedAt: Long = System.currentTimeMillis(),
 )

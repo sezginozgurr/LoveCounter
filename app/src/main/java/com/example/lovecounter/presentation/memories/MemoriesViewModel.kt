@@ -29,9 +29,7 @@ class MemoriesViewModel @Inject constructor(
                 navigateTo(Screen.AddMemory)
             }
 
-            is MemoriesContract.UiAction.OnMemoryClick -> {
-                // Navigate to memoryEntity detail if implemented
-            }
+            is MemoriesContract.UiAction.OnMemoryClick -> Unit
         }
     }
 

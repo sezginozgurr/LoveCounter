@@ -32,7 +32,7 @@ class SplashViewModel @Inject constructor(
 
     private fun checkOnboardingStatus() {
         viewModelScope.launch {
-            delay(1000) // Splash delay
+            delay(1000)
             dataStoreRepository.isOnboardingCompleted.collect { completed ->
                 val destination = if (completed) Screen.Home else Screen.Onboarding
                 updateUiState { copy(startDestination = destination, isLoading = false) }
